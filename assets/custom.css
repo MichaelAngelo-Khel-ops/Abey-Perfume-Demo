@@ -1,0 +1,57 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+img,
+video {
+  height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+}
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  cursor: pointer;
+}
+
+textarea {
+  resize: vertical;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* css values */
