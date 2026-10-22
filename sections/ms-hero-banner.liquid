@@ -1,0 +1,677 @@
+{% style %}
+    #ms-hero-slider-{{ section.id }} {
+      --ms-min-height: {{ section.settings.min_height }}px;
+      --ms-pad-top: {{ section.settings.padding_top }}px;
+      --ms-pad-bottom: {{ section.settings.padding_bottom }}px;
+      --ms-controls-color: {{ section.settings.controls_color }};
+    }
+  {% endstyle %}
+
+
+{% stylesheet %}
+  /* ---------- Minimal Swiper core (so no swiper css file is needed) ---------- */
+  .ms-hero-slider {
+    display: block;
+    width: 100%;
+  }
+
+  .ms-hero-slider__swiper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .ms-hero-slider .swiper-wrapper {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
+    transition-property: transform;
+  }
+
+  .ms-hero-slider .swiper-slide {
+    position: relative;
+    flex-shrink: 0;
+    width: 100%;
+    height: auto;
+    transition-property: transform;
+  }
+
+  .ms-hero-slider .swiper-fade .swiper-slide {
+    pointer-events: none;
+    transition-property: opacity;
+  }
+
+  .ms-hero-slider .swiper-fade .swiper-slide-active {
+    pointer-events: auto;
+  }
+
+  .ms-hero-slider__empty {
+    padding: 4rem 1rem;
+    text-align: center;
+    background: rgb(0 0 0 / 0.05);
+  }
+
+  /* ---------- Slide ---------- */
+  .ms-hero-slide {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    min-height: var(--ms-min-height);
+    padding-block: var(--ms-pad-top) var(--ms-pad-bottom);
+    background: var(--ms-bg);
+  }
+
+  .ms-hero-slide__bg,
+  .ms-hero-slide__overlay {
+    position: absolute;
+    inset: 0;
+  }
+
+  .ms-hero-slide__bg-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ms-hero-slide__overlay {
+    background: var(--ms-overlay);
+    opacity: var(--ms-overlay-opacity);
+    pointer-events: none;
+  }
+
+  .ms-hero-slide__container {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 3.5rem;
+  }
+
+  .ms-hero-slide__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .ms-hero-slide__eyebrow {
+      margin: 0;
+      font-size: 1.3rem;
+      font-weight: 400;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--ms-eyebrow-color);
+  }
+
+  .ms-hero-slide__heading {
+    margin: 0;
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--ms-heading-color);
+  }
+
+  .ms-hero-slide__text {
+    max-width: 30rem;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: var(--ms-text-color);
+  }
+
+  .ms-hero-slide__text p {
+    margin: 0 0 0.75rem;
+  }
+
+  .ms-hero-slide__text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ms-hero-slide__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+    padding: 0.6rem 1.1rem;
+    border: 1px solid var(--ms-btn-color);
+    background: var(--ms-btn-bg);
+    color: var(--ms-btn-color);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .ms-hero-slide__button:hover {
+    opacity: 0.8;
+  }
+
+  .ms-hero-slide__button-arrow {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .ms-hero-slide__button:hover .ms-hero-slide__button-arrow {
+    transform: translateX(4px);
+  }
+
+  .ms-hero-slide__media {
+    display: flex;
+    justify-content: center;
+  }
+
+  .ms-hero-slide__product {
+    display: block;
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .ms-hero-slide__placeholder {
+    background: rgb(255 255 255 / 0.06);
+    aspect-ratio: 1;
+  }
+
+  /* ---------- Controls ---------- */
+  .ms-hero-slider__arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--ms-controls-color);
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition: opacity 0.2s ease;
+  }
+
+  .ms-hero-slider__arrow--prev { left: 0.75rem; }
+  .ms-hero-slider__arrow--next { right: 0.75rem; }
+
+  .ms-hero-slider__arrow:hover { opacity: 0.7; }
+  .ms-hero-slider__arrow.ms-is-disabled { opacity: 0.25; cursor: default; }
+
+  .ms-hero-slider__pagination {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 1rem;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .ms-hero-slider__bullet {
+    width: 0.5rem;
+    height: 0.5rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--ms-controls-color);
+    opacity: 0.35;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+
+  .ms-hero-slider__bullet.ms-is-active {
+    opacity: 1;
+  }
+
+  /* ---------- Desktop ---------- */
+  @media screen and (min-width: 750px) {
+    .ms-hero-slider__arrow {
+      display: flex;
+    }
+
+    .ms-hero-slide__container {
+      grid-template-columns: 1fr var(--ms-image-width);
+      gap: 3rem;
+      padding-inline: 5rem;
+    }
+
+    .ms-hero-slide--left .ms-hero-slide__container {
+      grid-template-columns: var(--ms-image-width) 1fr;
+    }
+
+    .ms-hero-slide--left .ms-hero-slide__media {
+      order: -1;
+    }
+
+    .ms-hero-slide__product {
+      max-width: none;
+    }
+  }
+{% endstylesheet %}
+  
+  {%- if section.blocks.size == 0 -%}
+    <div class="ms-hero-slider__empty">Add slides to this section.</div>
+  {%- else -%}
+    <ms-hero-slider
+      class="ms-hero-slider"
+      id="ms-hero-slider-{{ section.id }}"
+      data-swiper-src="{{ 'swiper-bundle.min.js' | asset_url }}"
+      data-autoplay="{{ section.settings.autoplay }}"
+      data-delay="{{ section.settings.autoplay_delay | times: 1000 }}"
+      data-speed="{{ section.settings.speed }}"
+      data-loop="{{ section.settings.loop }}"
+      data-effect="{{ section.settings.effect }}"
+    >
+      <div class="swiper ms-hero-slider__swiper">
+        <div class="swiper-wrapper">
+  
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign bg_image = block.settings.bg_image
+              assign product_image = block.settings.product_image
+              assign lazy = 'lazy'
+              assign fetch = 'auto'
+              if forloop.first
+                assign lazy = 'eager'
+                assign fetch = 'high'
+              endif
+            -%}
+  
+            <div
+              class="swiper-slide ms-hero-slide ms-hero-slide--{{ block.settings.image_position }}"
+              style="
+                --ms-bg: {{ block.settings.bg_color }};
+                --ms-eyebrow-color: {{ block.settings.eyebrow_color }};
+                --ms-heading-color: {{ block.settings.heading_color }};
+                --ms-text-color: {{ block.settings.text_color }};
+                --ms-btn-bg: {{ block.settings.button_bg }};
+                --ms-btn-color: {{ block.settings.button_color }};
+                --ms-overlay: {{ block.settings.overlay_color }};
+                --ms-overlay-opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
+                --ms-image-width: {{ block.settings.image_width }}%;
+              "
+              {{ block.shopify_attributes }}
+            >
+  
+              {%- if bg_image != blank -%}
+                <div class="ms-hero-slide__bg" aria-hidden="true">
+                  {{
+                    bg_image
+                    | image_url: width: 2400
+                    | image_tag:
+                      widths: '750, 1100, 1500, 1800, 2400',
+                      sizes: '100vw',
+                      class: 'ms-hero-slide__bg-image',
+                      loading: lazy,
+                      fetchpriority: fetch,
+                      alt: ''
+                  }}
+                </div>
+              {%- endif -%}
+  
+              <div class="ms-hero-slide__overlay" aria-hidden="true"></div>
+  
+              <div class="ms-hero-slide__container">
+  
+                <div class="ms-hero-slide__content">
+                  {%- if block.settings.eyebrow != blank -%}
+                    <p class="ms-hero-slide__eyebrow">{{ block.settings.eyebrow }}</p>
+                  {%- endif -%}
+  
+                  {%- if block.settings.heading != blank -%}
+                    <h2 class="ms-hero-slide__heading">{{ block.settings.heading }}</h2>
+                  {%- endif -%}
+  
+                  {%- if block.settings.text != blank -%}
+                    <div class="ms-hero-slide__text rte">{{ block.settings.text }}</div>
+                  {%- endif -%}
+  
+                  {%- if block.settings.button_label != blank -%}
+                    <a
+                      class="ms-hero-slide__button"
+                      {% if block.settings.button_link != blank %}href="{{ block.settings.button_link }}"{% endif %}
+                    >
+                      <span>{{ block.settings.button_label }}</span>
+                      {%- if block.settings.show_arrow -%}
+                        <svg class="ms-hero-slide__button-arrow" width="22" height="10" viewBox="0 0 22 10" fill="none" aria-hidden="true">
+                          <path d="M0 5h20M16 1l4 4-4 4" stroke="currentColor" stroke-width="1"/>
+                        </svg>
+                      {%- endif -%}
+                    </a>
+                  {%- endif -%}
+                </div>
+  
+                <div class="ms-hero-slide__media">
+                  {%- if product_image != blank -%}
+                    {{
+                      product_image
+                      | image_url: width: 1400
+                      | image_tag:
+                        widths: '400, 600, 800, 1000, 1400',
+                        sizes: '(min-width: 750px) 45vw, 90vw',
+                        class: 'ms-hero-slide__product',
+                        loading: lazy,
+                        fetchpriority: fetch,
+                        alt: product_image.alt
+                    }}
+                  {%- else -%}
+                    {{ 'product-1' | placeholder_svg_tag: 'ms-hero-slide__product ms-hero-slide__placeholder' }}
+                  {%- endif -%}
+                </div>
+  
+              </div>
+            </div>
+          {%- endfor -%}
+  
+        </div>
+  
+        {%- if section.blocks.size > 1 -%}
+          {%- if section.settings.show_arrows -%}
+            <button class="ms-hero-slider__arrow ms-hero-slider__arrow--prev" type="button" aria-label="Previous slide">
+              <svg width="12" height="20" viewBox="0 0 12 20" fill="none" aria-hidden="true">
+                <path d="M10 1L2 10l8 9" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </button>
+            <button class="ms-hero-slider__arrow ms-hero-slider__arrow--next" type="button" aria-label="Next slide">
+              <svg width="12" height="20" viewBox="0 0 12 20" fill="none" aria-hidden="true">
+                <path d="M2 1l8 9-8 9" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </button>
+          {%- endif -%}
+  
+          {%- if section.settings.show_pagination -%}
+            <div class="ms-hero-slider__pagination"></div>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    </ms-hero-slider>
+  {%- endif -%}
+
+  
+  <script>
+    (function () {
+      if (customElements.get('ms-hero-slider')) return;
+  
+      // Loads the theme's assets/swiper.js once, only if window.Swiper isn't already there.
+      function loadSwiper(src) {
+        if (window.Swiper) return Promise.resolve();
+        if (!window.__msSwiperPromise) {
+          window.__msSwiperPromise = new Promise(function (resolve, reject) {
+            var s = document.createElement('script');
+            s.src = src;
+            s.onload = resolve;
+            s.onerror = reject;
+            document.head.appendChild(s);
+          });
+        }
+        return window.__msSwiperPromise;
+      }
+  
+      class MsHeroSlider extends HTMLElement {
+        constructor() {
+          super();
+          this.swiper = null;
+          this.onBlockSelect = this.onBlockSelect.bind(this);
+        }
+  
+        connectedCallback() {
+          this.init();
+        }
+  
+        disconnectedCallback() {
+          this.removeEventListener('shopify:block:select', this.onBlockSelect);
+          if (this.swiper) {
+            this.swiper.destroy(true, true);
+            this.swiper = null;
+          }
+        }
+  
+        async init() {
+          try {
+            await loadSwiper(this.dataset.swiperSrc);
+          } catch (error) {
+            console.error('ms-hero-slider: could not load swiper.js', error);
+            return;
+          }
+          if (!this.isConnected || this.swiper) return;
+  
+          var el = this.querySelector('.swiper');
+          var d = this.dataset;
+          var count = this.querySelectorAll('.swiper-slide').length;
+          var multiple = count > 1;
+          var inEditor = Boolean(window.Shopify && window.Shopify.designMode);
+          var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          var fade = d.effect === 'fade';
+  
+          var prevEl = this.querySelector('.ms-hero-slider__arrow--prev');
+          var nextEl = this.querySelector('.ms-hero-slider__arrow--next');
+          var pagEl = this.querySelector('.ms-hero-slider__pagination');
+  
+          this.swiper = new window.Swiper(el, {
+            slidesPerView: 1,
+            speed: Number(d.speed) || 800,
+            loop: d.loop === 'true' && multiple,
+            allowTouchMove: multiple,
+            effect: fade ? 'fade' : 'slide',
+            fadeEffect: fade ? { crossFade: true } : undefined,
+            autoplay:
+              d.autoplay === 'true' && multiple && !reduced && !inEditor
+                ? { delay: Number(d.delay) || 5000, disableOnInteraction: false, pauseOnMouseEnter: true }
+                : false,
+            navigation:
+              prevEl && nextEl
+                ? { prevEl: prevEl, nextEl: nextEl, disabledClass: 'ms-is-disabled' }
+                : false,
+            pagination: pagEl
+              ? {
+                  el: pagEl,
+                  clickable: true,
+                  bulletClass: 'ms-hero-slider__bullet',
+                  bulletActiveClass: 'ms-is-active',
+                  renderBullet: function (index, className) {
+                    return '<button type="button" class="' + className + '" aria-label="Go to slide ' + (index + 1) + '"></button>';
+                  },
+                }
+              : false,
+          });
+  
+          if (inEditor) {
+            this.addEventListener('shopify:block:select', this.onBlockSelect);
+          }
+        }
+  
+        onBlockSelect(event) {
+          if (!this.swiper) return;
+          var slide = event.target.closest('.swiper-slide');
+          if (!slide) return;
+          var index = slide.getAttribute('data-swiper-slide-index');
+          index = index !== null ? Number(index) : Array.prototype.indexOf.call(slide.parentNode.children, slide);
+          if (this.swiper.params.loop) {
+            this.swiper.slideToLoop(index, 0);
+          } else {
+            this.swiper.slideTo(index, 0);
+          }
+          if (this.swiper.autoplay && this.swiper.autoplay.running) this.swiper.autoplay.stop();
+        }
+      }
+  
+      customElements.define('ms-hero-slider', MsHeroSlider);
+    })();
+  </script>
+  
+  {% schema %}
+  {
+    "name": "MS Hero Slider",
+    "tag": "section",
+    "class": "ms-section",
+    "max_blocks": 6,
+    "settings": [
+      { "type": "header", "content": "Slider behavior" },
+      { "type": "checkbox", "id": "autoplay", "label": "Autoplay", "default": true },
+      {
+        "type": "range",
+        "id": "autoplay_delay",
+        "label": "Autoplay delay",
+        "min": 2,
+        "max": 12,
+        "step": 1,
+        "unit": "s",
+        "default": 5
+      },
+      {
+        "type": "range",
+        "id": "speed",
+        "label": "Transition speed",
+        "min": 200,
+        "max": 2000,
+        "step": 100,
+        "unit": "ms",
+        "default": 800
+      },
+      { "type": "checkbox", "id": "loop", "label": "Loop slides", "default": true },
+      {
+        "type": "select",
+        "id": "effect",
+        "label": "Transition",
+        "options": [
+          { "value": "slide", "label": "Slide" },
+          { "value": "fade", "label": "Fade" }
+        ],
+        "default": "fade"
+      },
+  
+      { "type": "header", "content": "Controls" },
+      { "type": "checkbox", "id": "show_arrows", "label": "Show arrows (desktop)", "default": true },
+      { "type": "checkbox", "id": "show_pagination", "label": "Show pagination dots", "default": true },
+      { "type": "color", "id": "controls_color", "label": "Controls color", "default": "#ffffff" },
+  
+      { "type": "header", "content": "Layout" },
+      {
+        "type": "range",
+        "id": "min_height",
+        "label": "Minimum height",
+        "min": 300,
+        "max": 900,
+        "step": 20,
+        "unit": "px",
+        "default": 560
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "label": "Top padding",
+        "min": 0,
+        "max": 160,
+        "step": 4,
+        "unit": "px",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "label": "Bottom padding",
+        "min": 0,
+        "max": 160,
+        "step": 4,
+        "unit": "px",
+        "default": 40
+      }
+    ],
+    "blocks": [
+      {
+        "type": "slide",
+        "name": "Slide",
+        "settings": [
+          { "type": "header", "content": "Background" },
+          { "type": "image_picker", "id": "bg_image", "label": "Background image" },
+          { "type": "color", "id": "bg_color", "label": "Background color", "default": "#0a0a0a" },
+          { "type": "color", "id": "overlay_color", "label": "Overlay color", "default": "#000000" },
+          {
+            "type": "range",
+            "id": "overlay_opacity",
+            "label": "Overlay opacity",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "%",
+            "default": 30
+          },
+  
+          { "type": "header", "content": "Product image" },
+          {
+            "type": "image_picker",
+            "id": "product_image",
+            "label": "Product image",
+            "info": "Use a transparent PNG or WebP for best results."
+          },
+          {
+            "type": "select",
+            "id": "image_position",
+            "label": "Image position (desktop)",
+            "options": [
+              { "value": "right", "label": "Right" },
+              { "value": "left", "label": "Left" }
+            ],
+            "default": "right"
+          },
+          {
+            "type": "range",
+            "id": "image_width",
+            "label": "Image column width",
+            "min": 30,
+            "max": 60,
+            "step": 5,
+            "unit": "%",
+            "default": 45
+          },
+  
+          { "type": "header", "content": "Content" },
+          { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Perfume packaging perfected" },
+          {
+            "type": "textarea",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Packaging Solutions Tailored for Your Brand"
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text",
+            "default": "<p>Elevate your fragrance experience with the premier perfume bottle packaging factory.</p>"
+          },
+          { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop now" },
+          { "type": "url", "id": "button_link", "label": "Button link" },
+          { "type": "checkbox", "id": "show_arrow", "label": "Show button arrow", "default": true },
+  
+          { "type": "header", "content": "Colors" },
+          { "type": "color", "id": "eyebrow_color", "label": "Eyebrow", "default": "#c9a66b" },
+          { "type": "color", "id": "heading_color", "label": "Heading", "default": "#ffffff" },
+          { "type": "color", "id": "text_color", "label": "Text", "default": "#e6e6e6" },
+          { "type": "color", "id": "button_bg", "label": "Button background", "default": "#00000000" },
+          { "type": "color", "id": "button_color", "label": "Button text and border", "default": "#ffffff" }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "MS Hero Slider",
+        "blocks": [
+          { "type": "slide" },
+          { "type": "slide" }
+        ]
+      }
+    ]
+  }
+  {% endschema %}
