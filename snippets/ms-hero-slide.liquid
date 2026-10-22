@@ -1,0 +1,96 @@
+{%- liquid
+  assign bg_image = slide_settings.bg_image
+  assign product_image = slide_settings.product_image
+  assign slide_classes = 'ms-hero ms-hero--' | append: slide_settings.image_position
+  assign slide_dom_id = 'ms-hero-' | append: section_id
+  if is_slider
+    assign slide_classes = slide_classes | append: ' swiper-slide'
+    assign slide_dom_id = slide_dom_id | append: '-' | append: slide_id
+  endif
+-%}
+
+<section
+  class="{{ slide_classes }}"
+  id="{{ slide_dom_id }}"
+  {% if block != blank %}
+    {{ block.shopify_attributes }}
+    style="
+      --ms-bg: {{ slide_settings.bg_color }};
+      --ms-eyebrow-color: {{ slide_settings.eyebrow_color }};
+      --ms-heading-color: {{ slide_settings.heading_color }};
+      --ms-text-color: {{ slide_settings.text_color }};
+      --ms-btn-bg: {{ slide_settings.button_bg }};
+      --ms-btn-color: {{ slide_settings.button_color }};
+      --ms-overlay: {{ slide_settings.overlay_color }};
+      --ms-overlay-opacity: {{ slide_settings.overlay_opacity | divided_by: 100.0 }};
+      --ms-min-height: {{ slide_settings.min_height }}px;
+      --ms-image-width: {{ slide_settings.image_width }}%;
+      --ms-pad-top: {{ slide_settings.padding_top }}px;
+      --ms-pad-bottom: {{ slide_settings.padding_bottom }}px;
+    "
+  {% endif %}
+>
+  {%- if bg_image != blank -%}
+    <div class="ms-hero__bg" aria-hidden="true">
+      {{
+        bg_image
+        | image_url: width: 2400
+        | image_tag:
+          widths: '750, 1100, 1500, 1800, 2400',
+          sizes: '100vw',
+          class: 'ms-hero__bg-image',
+          loading: image_loading,
+          alt: ''
+      }}
+    </div>
+  {%- endif -%}
+
+  <div class="ms-hero__overlay" aria-hidden="true"></div>
+
+  <div class="ms-hero__container">
+    <div class="ms-hero__content">
+      {%- if slide_settings.eyebrow != blank -%}
+        <p class="ms-hero__eyebrow">{{ slide_settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if slide_settings.heading != blank -%}
+        <h1 class="ms-hero__heading">{{ slide_settings.heading }}</h1>
+      {%- endif -%}
+
+      {%- if slide_settings.text != blank -%}
+        <div class="ms-hero__text rte">{{ slide_settings.text }}</div>
+      {%- endif -%}
+
+      {%- if slide_settings.button_label != blank -%}
+        <a
+          class="ms-hero__button"
+          {% if slide_settings.button_link != blank %}href="{{ slide_settings.button_link }}"{% endif %}
+        >
+          <span>{{ slide_settings.button_label }}</span>
+          {%- if slide_settings.show_arrow -%}
+            <svg class="ms-hero__button-arrow" width="22" height="10" viewBox="0 0 22 10" fill="none" aria-hidden="true">
+              <path d="M0 5h20M16 1l4 4-4 4" stroke="currentColor" stroke-width="1"/>
+            </svg>
+          {%- endif -%}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="ms-hero__media">
+      {%- if product_image != blank -%}
+        {{
+          product_image
+          | image_url: width: 1400
+          | image_tag:
+            widths: '400, 600, 800, 1000, 1400',
+            sizes: '(min-width: 750px) 45vw, 90vw',
+            class: 'ms-hero__product',
+            loading: image_loading,
+            alt: product_image.alt
+        }}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'ms-hero__product ms-hero__placeholder' }}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
