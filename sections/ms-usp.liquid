@@ -1,0 +1,413 @@
+{% stylesheet %}
+    /* ---------- Layout ---------- */
+    .ms-usp-bar {
+      background: var(--ms-bg);
+      padding-block: var(--ms-pad-top) var(--ms-pad-bottom);
+    }
+  
+    .ms-usp-bar__container {
+      max-width: 1200px;
+      margin-inline: auto;
+      padding-inline: 1.5rem;
+    }
+  
+    .ms-usp-bar__empty {
+      margin: 0;
+      text-align: center;
+      color: var(--ms-text-color);
+    }
+  
+    /* ---------- Minimal Swiper core (no swiper css file needed) ---------- */
+    .ms-usp-bar__swiper {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+    }
+  
+    .ms-usp-bar .swiper-wrapper {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      box-sizing: content-box;
+      transition-property: transform;
+    }
+  
+    .ms-usp-bar .swiper-slide {
+      position: relative;
+      flex-shrink: 0;
+      width: 100%;
+      height: auto;
+      transition-property: transform;
+    }
+  
+    /* ---------- Item ---------- */
+    .ms-usp-bar__item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      justify-content: center;
+      color: var(--ms-text-color);
+      text-decoration: none;
+    }
+  
+    .ms-usp-bar--mobile-left .ms-usp-bar__item {
+      justify-content: flex-start;
+    }
+  
+    .ms-usp-bar__icon {
+      display: block;
+      flex-shrink: 0;
+      width: var(--ms-icon-size);
+      height: var(--ms-icon-size);
+      object-fit: contain;
+    }
+  
+    .ms-usp-bar__label {
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.2;
+      text-transform: uppercase;
+      color: var(--ms-text-color);
+    }
+  
+    a.ms-usp-bar__item:hover .ms-usp-bar__label {
+      opacity: 0.8;
+    }
+  
+    /* ---------- Pagination ---------- */
+    .ms-usp-bar__pagination {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      display: none;
+    }
+  
+    .ms-usp-bar__bullet {
+      width: 0.5rem;
+      height: 0.5rem;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: var(--ms-text-color);
+      opacity: 0.35;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+  
+    .ms-usp-bar__bullet.ms-is-active {
+      opacity: 1;
+    }
+  
+    /* Swiper adds this class when everything fits (desktop with 3 items) */
+    .ms-usp-bar__pagination.ms-is-locked {
+      display: none;
+    }
+  
+    /* ---------- Desktop ---------- */
+    @media screen and (min-width: 750px) {
+      .ms-usp-bar__item,
+      .ms-usp-bar--mobile-left .ms-usp-bar__item {
+        justify-content: center;
+      }
+    }
+  {% endstylesheet %}
+  
+  {% style %}
+    #ms-usp-bar-{{ section.id }} {
+      --ms-bg: {{ section.settings.bg_color }};
+      --ms-text-color: {{ section.settings.text_color }};
+      --ms-icon-size: {{ section.settings.icon_size }}px;
+      --ms-pad-top: {{ section.settings.padding_top }}px;
+      --ms-pad-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  {% endstyle %}
+  
+  <section
+    class="ms-usp-bar ms-usp-bar--mobile-{{ section.settings.mobile_align }}"
+    id="ms-usp-bar-{{ section.id }}"
+  >
+    <div class="ms-usp-bar__container">
+      {%- if section.blocks.size == 0 -%}
+        <p class="ms-usp-bar__empty">Add items to this section.</p>
+      {%- else -%}
+        <ms-usp-slider
+          data-swiper-src="{{ 'swiper.js' | asset_url }}"
+          data-desktop-items="{{ section.settings.desktop_items }}"
+          data-gap="{{ section.settings.gap }}"
+          data-speed="{{ section.settings.speed }}"
+          data-autoplay="{{ section.settings.autoplay }}"
+          data-delay="{{ section.settings.autoplay_delay | times: 1000 }}"
+        >
+          <div class="swiper ms-usp-bar__swiper">
+            <div class="swiper-wrapper">
+              {%- for block in section.blocks -%}
+                {%- liquid
+                  assign icon = block.settings.icon
+                  if block.settings.link != blank
+                    assign tag = 'a'
+                  else
+                    assign tag = 'div'
+                  endif
+                -%}
+  
+                <div class="swiper-slide ms-usp-bar__slide" {{ block.shopify_attributes }}>
+                  <{{ tag }}
+                    class="ms-usp-bar__item"
+                    {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %}
+                  >
+                    {%- if icon != blank -%}
+                      {{
+                        icon
+                        | image_url: width: 120
+                        | image_tag:
+                          width: 60,
+                          height: 60,
+                          class: 'ms-usp-bar__icon',
+                          loading: 'lazy',
+                          alt: icon.alt
+                      }}
+                    {%- endif -%}
+  
+                    {%- if block.settings.label != blank -%}
+                      <span class="ms-usp-bar__label">{{ block.settings.label }}</span>
+                    {%- endif -%}
+                  </{{ tag }}>
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+  
+          <div class="ms-usp-bar__pagination"></div>
+        </ms-usp-slider>
+      {%- endif -%}
+    </div>
+  </section>
+  
+  <script>
+    (function () {
+      if (customElements.get('ms-usp-slider')) return;
+  
+      // Loads the theme's assets/swiper.js once, only if window.Swiper isn't already there.
+      function loadSwiper(src) {
+        if (window.Swiper) return Promise.resolve();
+        if (!window.__msSwiperPromise) {
+          window.__msSwiperPromise = new Promise(function (resolve, reject) {
+            var s = document.createElement('script');
+            s.src = src;
+            s.onload = resolve;
+            s.onerror = reject;
+            document.head.appendChild(s);
+          });
+        }
+        return window.__msSwiperPromise;
+      }
+  
+      class MsUspSlider extends HTMLElement {
+        constructor() {
+          super();
+          this.swiper = null;
+          this.onBlockSelect = this.onBlockSelect.bind(this);
+        }
+  
+        connectedCallback() {
+          this.init();
+        }
+  
+        disconnectedCallback() {
+          this.removeEventListener('shopify:block:select', this.onBlockSelect);
+          if (this.swiper) {
+            this.swiper.destroy(true, true);
+            this.swiper = null;
+          }
+        }
+  
+        async init() {
+          try {
+            await loadSwiper(this.dataset.swiperSrc);
+          } catch (error) {
+            console.error('ms-usp-slider: could not load swiper.js', error);
+            return;
+          }
+          if (!this.isConnected || this.swiper) return;
+  
+          var d = this.dataset;
+          var gap = Number(d.gap) || 16;
+          var desktopItems = Number(d.desktopItems) || 3;
+          var inEditor = Boolean(window.Shopify && window.Shopify.designMode);
+          var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          var pagEl = this.querySelector('.ms-usp-bar__pagination');
+  
+          this.swiper = new window.Swiper(this.querySelector('.swiper'), {
+            slidesPerView: 1,
+            spaceBetween: gap,
+            speed: Number(d.speed) || 500,
+            watchOverflow: true, // locks the slider when all items fit (desktop)
+            autoplay:
+              d.autoplay === 'true' && !reduced && !inEditor
+                ? { delay: Number(d.delay) || 4000, disableOnInteraction: false }
+                : false,
+            breakpoints: {
+              750: {
+                slidesPerView: desktopItems,
+                spaceBetween: gap,
+              },
+            },
+            pagination: pagEl
+              ? {
+                  el: pagEl,
+                  clickable: true,
+                  bulletClass: 'ms-usp-bar__bullet',
+                  bulletActiveClass: 'ms-is-active',
+                  lockClass: 'ms-is-locked',
+                  renderBullet: function (index, className) {
+                    return '<button type="button" class="' + className + '" aria-label="Go to item ' + (index + 1) + '"></button>';
+                  },
+                }
+              : false,
+          });
+  
+          if (inEditor) {
+            this.addEventListener('shopify:block:select', this.onBlockSelect);
+          }
+        }
+  
+        onBlockSelect(event) {
+          if (!this.swiper) return;
+          var slide = event.target.closest('.swiper-slide');
+          if (!slide) return;
+          var index = Array.prototype.indexOf.call(slide.parentNode.children, slide);
+          this.swiper.slideTo(index, 0);
+        }
+      }
+  
+      customElements.define('ms-usp-slider', MsUspSlider);
+    })();
+  </script>
+  
+  {% schema %}
+  {
+    "name": "MS USP Bar",
+    "tag": "div",
+    "class": "ms-section",
+    "max_blocks": 8,
+    "settings": [
+      { "type": "header", "content": "Colors" },
+      { "type": "color", "id": "bg_color", "label": "Background", "default": "#1c1c1c" },
+      { "type": "color", "id": "text_color", "label": "Label color", "default": "#ffffff" },
+  
+      { "type": "header", "content": "Slider" },
+      {
+        "type": "range",
+        "id": "desktop_items",
+        "label": "Items visible on desktop",
+        "min": 2,
+        "max": 4,
+        "step": 1,
+        "default": 3,
+        "info": "Mobile always shows 1. The slider only activates when there are more items than fit."
+      },
+      {
+        "type": "range",
+        "id": "speed",
+        "label": "Transition speed",
+        "min": 200,
+        "max": 1500,
+        "step": 100,
+        "unit": "ms",
+        "default": 500
+      },
+      { "type": "checkbox", "id": "autoplay", "label": "Autoplay", "default": false },
+      {
+        "type": "range",
+        "id": "autoplay_delay",
+        "label": "Autoplay delay",
+        "min": 2,
+        "max": 10,
+        "step": 1,
+        "unit": "s",
+        "default": 4
+      },
+  
+      { "type": "header", "content": "Layout" },
+      {
+        "type": "select",
+        "id": "mobile_align",
+        "label": "Mobile alignment",
+        "options": [
+          { "value": "left", "label": "Left" },
+          { "value": "center", "label": "Center" }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "range",
+        "id": "icon_size",
+        "label": "Icon size",
+        "min": 16,
+        "max": 80,
+        "step": 2,
+        "unit": "px",
+        "default": 32
+      },
+      {
+        "type": "range",
+        "id": "gap",
+        "label": "Gap between items",
+        "min": 8,
+        "max": 80,
+        "step": 4,
+        "unit": "px",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "label": "Top padding",
+        "min": 0,
+        "max": 80,
+        "step": 4,
+        "unit": "px",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "label": "Bottom padding",
+        "min": 0,
+        "max": 80,
+        "step": 4,
+        "unit": "px",
+        "default": 20
+      }
+    ],
+    "blocks": [
+      {
+        "type": "item",
+        "name": "USP item",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Icon",
+            "info": "Use a PNG or SVG with a transparent background."
+          },
+          { "type": "text", "id": "label", "label": "Label", "default": "One-stop service" },
+          { "type": "url", "id": "link", "label": "Link (optional)" }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "MS USP Bar",
+        "blocks": [
+          { "type": "item", "settings": { "label": "One-stop service" } },
+          { "type": "item", "settings": { "label": "Design and innovation" } },
+          { "type": "item", "settings": { "label": "Quality assurance" } }
+        ]
+      }
+    ]
+  }
+  {% endschema %}
