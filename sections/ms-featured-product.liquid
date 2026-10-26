@@ -1,0 +1,534 @@
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .ms-featured {
+    --ms-featured-accent: {{ section.settings.accent_color }};
+    --ms-featured-text: #1a1a1a;
+    --ms-featured-gutter: 16px;
+    --ms-featured-cols: {{ section.settings.columns }};
+    padding: 40px 0;
+    overflow: hidden;
+    color: var(--ms-featured-text);
+  }
+
+  .ms-featured__header {
+    max-width: 640px;
+    margin: 0 auto 32px;
+    padding: 0 var(--ms-featured-gutter);
+    text-align: center;
+  }
+
+  .ms-featured__heading {
+    margin: 0 0 12px;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 1.15;
+  }
+
+  .ms-featured__text {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  /* Mobile: slider. The left gutter is padding and the right side bleeds so the next slide peeks in */
+  .ms-featured__slider {
+    padding-left: var(--ms-featured-gutter);
+  }
+
+  .ms-featured__slide.swiper-slide {
+    width: 78%;
+    height: auto;
+  }
+
+  .ms-featured__card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .ms-featured__media {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    background: #f3f3f3;
+  }
+
+  .ms-featured__media-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ms-featured__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+
+  .ms-featured__placeholder {
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+  }
+
+  .ms-featured__badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 2;
+    padding: 3px 8px;
+    background: var(--ms-featured-accent);
+    color: #fff;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .ms-featured__badge--soldout {
+    background: #1a1a1a;
+  }
+
+  .ms-featured__actions,
+  .ms-featured__quick {
+    display: none;
+  }
+
+  .ms-featured__info {
+    padding: 16px 8px 0;
+    text-align: center;
+  }
+
+  .ms-featured__title {
+    display: block;
+    margin: 0 0 8px;
+    color: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .ms-featured__price {
+    margin: 0;
+    color: var(--ms-featured-accent);
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+
+  .ms-featured__price s {
+    margin-left: 6px;
+    color: #8a8a8a;
+    font-size: 0.875rem;
+    font-weight: 400;
+  }
+
+  .ms-featured__details {
+    display: block;
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .ms-featured__footer {
+    margin-top: 32px;
+    padding: 0 var(--ms-featured-gutter);
+    text-align: center;
+  }
+
+  .ms-featured__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 22px;
+    border: 1px solid var(--ms-featured-text);
+    color: var(--ms-featured-text);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .ms-featured__button:hover {
+    background: var(--ms-featured-text);
+    color: #fff;
+  }
+
+  .ms-featured__button svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .ms-featured__empty {
+    padding: 32px var(--ms-featured-gutter);
+    text-align: center;
+  }
+
+  /* Desktop: plain grid, Swiper is not initialized */
+  @media screen and (min-width: 750px) {
+    .ms-featured {
+      --ms-featured-gutter: 48px;
+      padding: 64px 0;
+    }
+
+    .ms-featured__heading {
+      font-size: 2.5rem;
+    }
+
+    .ms-featured__slider {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--ms-featured-gutter);
+    }
+
+    .ms-featured .ms-featured__wrapper {
+      display: grid;
+      grid-template-columns: repeat(var(--ms-featured-cols), minmax(0, 1fr));
+      gap: 24px;
+      transform: none;
+    }
+
+    .ms-featured .ms-featured__slide.swiper-slide {
+      width: auto;
+    }
+
+    .ms-featured__actions {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ms-featured__action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: #fff;
+      color: var(--ms-featured-text);
+      cursor: pointer;
+    }
+
+    .ms-featured__action svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .ms-featured__quick {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 0;
+      z-index: 2;
+      display: block;
+      transform: translateY(100%);
+      transition: transform 0.25s ease;
+    }
+
+    .ms-featured__quick-button {
+      display: block;
+      width: 100%;
+      padding: 14px 16px;
+      border: 0;
+      background: #1a1a1a;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-align: center;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .ms-featured__card:hover .ms-featured__quick,
+    .ms-featured__card:focus-within .ms-featured__quick {
+      transform: translateY(0);
+    }
+
+    .ms-featured__details {
+      display: none;
+    }
+  }
+</style>
+
+{% liquid
+  assign collection = section.settings.collection
+  assign products = collection.products | slice: 0, section.settings.product_limit
+%}
+
+<section class="ms-featured" id="ms-featured-{{ section.id }}">
+  {% if section.settings.heading != blank or section.settings.text != blank %}
+    <div class="ms-featured__header">
+      {% if section.settings.heading != blank %}
+        <h2 class="ms-featured__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.text != blank %}
+        <p class="ms-featured__text">{{ section.settings.text }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if collection != blank and products.size > 0 %}
+    <div class="ms-featured__slider" data-ms-featured-slider>
+      <div class="swiper">
+        <ul class="swiper-wrapper ms-featured__wrapper" role="list" style="list-style: none; margin: 0; padding: 0;">
+          {% for product in collection.products %}
+            <li class="swiper-slide ms-featured__slide">
+              <article class="ms-featured__card">
+                <div class="ms-featured__media">
+                  <a href="{{ product.url }}" class="ms-featured__media-link" tabindex="-1" aria-hidden="true">
+                    {% if product.featured_media != blank %}
+                      {{
+                        product.featured_media
+                        | image_url: width: 800
+                        | image_tag:
+                          class: 'ms-featured__image',
+                          loading: 'lazy',
+                          alt: product.featured_media.alt,
+                          widths: '300, 450, 600, 800',
+                          sizes: '(min-width: 750px) 400px, 78vw'
+                      }}
+                    {% else %}
+                      {{ 'product-1' | placeholder_svg_tag: 'ms-featured__placeholder' }}
+                    {% endif %}
+                  </a>
+
+                  {% if product.available == false %}
+                    <span class="ms-featured__badge ms-featured__badge--soldout">Sold out</span>
+                  {% elsif section.settings.new_tag != blank and product.tags contains section.settings.new_tag %}
+                    <span class="ms-featured__badge">New</span>
+                  {% endif %}
+
+                  {% if section.settings.show_icons %}
+                    <div class="ms-featured__actions">
+                      <button type="button" class="ms-featured__action" data-ms-wishlist="{{ product.id }}" aria-label="Add {{ product.title | escape }} to wishlist">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg>
+                      </button>
+                      <a href="{{ product.url }}" class="ms-featured__action" aria-label="View {{ product.title | escape }}">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                      </a>
+                      <button type="button" class="ms-featured__action" data-ms-compare="{{ product.id }}" aria-label="Compare {{ product.title | escape }}">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h16M16 4l4 4-4 4M20 16H4M8 12l-4 4 4 4"></path></svg>
+                      </button>
+                    </div>
+                  {% endif %}
+
+                  <div class="ms-featured__quick">
+                    {% if product.available and product.variants.size == 1 %}
+                      {% form 'product', product %}
+                        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                        <button type="submit" class="ms-featured__quick-button">Add to cart</button>
+                      {% endform %}
+                    {% elsif product.available %}
+                      <a href="{{ product.url }}" class="ms-featured__quick-button">Choose options</a>
+                    {% else %}
+                      <a href="{{ product.url }}" class="ms-featured__quick-button">View details</a>
+                    {% endif %}
+                  </div>
+                </div>
+
+                <div class="ms-featured__info">
+                  <a href="{{ product.url }}" class="ms-featured__title">{{ product.title }}</a>
+                  <p class="ms-featured__price">
+                    {{ product.price | money }}
+                    {% if product.compare_at_price > product.price %}
+                      <s>{{ product.compare_at_price | money }}</s>
+                    {% endif %}
+                  </p>
+                </div>
+
+                <a href="{{ product.url }}" class="ms-featured__details">View details</a>
+              </article>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% else %}
+    <p class="ms-featured__empty">Select a collection in the section settings to show products.</p>
+  {% endif %}
+
+  {% if section.settings.button_label != blank %}
+    <div class="ms-featured__footer">
+      <a href="{{ section.settings.button_link | default: collection.url | default: '#' }}" class="ms-featured__button">
+        {{ section.settings.button_label }}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 12h18M15 6l6 6-6 6"></path>
+        </svg>
+      </a>
+    </div>
+  {% endif %}
+</section>
+
+{%- comment -%}
+  Remove this tag if you already load swiper-bundle.min.js once in theme.liquid.
+{%- endcomment -%}
+<script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
+
+<script>
+  (() => {
+    const root = document.getElementById('ms-featured-{{ section.id }}');
+    const el = root?.querySelector('[data-ms-featured-slider] .swiper');
+    if (!el) return;
+
+    // The slider only runs on mobile. On desktop the same markup is a CSS grid.
+    const mobileQuery = window.matchMedia('(max-width: 749px)');
+
+    const initSlider = () => {
+      if (el.swiper) return true;
+      if (typeof window.Swiper !== 'function') return false;
+
+      try {
+        new window.Swiper(el, {
+          slidesPerView: 'auto',
+          spaceBetween: 16,
+          slidesOffsetAfter: 16,
+          grabCursor: true,
+          watchOverflow: true,
+        });
+      } catch (error) {
+        console.error('MS Featured: Swiper initialization failed.', error);
+      }
+      return true;
+    };
+
+    const destroySlider = () => {
+      if (el.swiper) el.swiper.destroy(true, true); // removes inline styles so the grid layout comes back
+    };
+
+    const sync = () => {
+      if (!root.isConnected) {
+        mobileQuery.removeEventListener('change', sync); // section was re-rendered in the editor
+        return;
+      }
+      if (mobileQuery.matches) {
+        if (!initSlider()) {
+          let tries = 0;
+          const timer = setInterval(() => {
+            tries += 1;
+            if (!mobileQuery.matches || initSlider() || tries > 50) clearInterval(timer);
+          }, 100);
+        }
+      } else {
+        destroySlider();
+      }
+    };
+
+    mobileQuery.addEventListener('change', sync);
+    sync();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "MS Featured Products",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Featured Products"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Act quickly to acquire our finest products at discounted rates, ideal for sharing with friends and family"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "label": "Number of products",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Columns (desktop)",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "info": "Leave empty to link to the selected collection."
+    },
+    {
+      "type": "header",
+      "content": "Product cards"
+    },
+    {
+      "type": "text",
+      "id": "new_tag",
+      "label": "Tag that shows the \"New\" badge",
+      "default": "new"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icons",
+      "label": "Show wishlist / view / compare icons (desktop)",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color (price and badge)",
+      "default": "#b89b6a"
+    }
+  ],
+  "presets": [
+    {
+      "name": "MS Featured Products"
+    }
+  ]
+}
+{% endschema %}
