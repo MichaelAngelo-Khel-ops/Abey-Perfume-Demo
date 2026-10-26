@@ -53,9 +53,55 @@
         "padding_top": 40,
         "padding_bottom": 40
       }
+    },
+    "ms_usp_nRfFct": {
+      "type": "ms-usp",
+      "blocks": {
+        "item_i74qi8": {
+          "type": "item",
+          "settings": {
+            "label": "One-stop service",
+            "link": ""
+          }
+        },
+        "item_d7AkMf": {
+          "type": "item",
+          "settings": {
+            "label": "Design and innovation",
+            "link": ""
+          }
+        },
+        "item_NXDyqT": {
+          "type": "item",
+          "settings": {
+            "label": "Quality assurance",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_i74qi8",
+        "item_d7AkMf",
+        "item_NXDyqT"
+      ],
+      "name": "MS USP Bar",
+      "settings": {
+        "bg_color": "#1c1c1c",
+        "text_color": "#ffffff",
+        "desktop_items": 3,
+        "speed": 500,
+        "autoplay": false,
+        "autoplay_delay": 4,
+        "mobile_align": "left",
+        "icon_size": 32,
+        "gap": 16,
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
     }
   },
   "order": [
-    "ms_hero_banner_iaN4hw"
+    "ms_hero_banner_iaN4hw",
+    "ms_usp_nRfFct"
   ]
 }
