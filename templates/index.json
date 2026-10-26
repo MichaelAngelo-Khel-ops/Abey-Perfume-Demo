@@ -221,6 +221,79 @@
         "show_icons": true,
         "accent_color": "#b89b6a"
       }
+    },
+    "ms_sub_usp_jJrCh3": {
+      "type": "ms-sub-usp",
+      "blocks": {
+        "logo_LUrLBi": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Group_1000002860.png",
+            "alt": "",
+            "link": ""
+          }
+        },
+        "logo_8DKaEy": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Group_1000002863.png",
+            "alt": "",
+            "link": ""
+          }
+        },
+        "logo_XnAjcB": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Group_1000002862.png",
+            "alt": "",
+            "link": ""
+          }
+        },
+        "logo_nKpbJP": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Group_1000002859.png",
+            "alt": "",
+            "link": ""
+          }
+        },
+        "logo_dwiEdq": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Group_1000002864.png",
+            "alt": "",
+            "link": ""
+          }
+        },
+        "logo_ADYnCP": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Group_1000002861.png",
+            "alt": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "logo_LUrLBi",
+        "logo_8DKaEy",
+        "logo_XnAjcB",
+        "logo_nKpbJP",
+        "logo_dwiEdq",
+        "logo_ADYnCP"
+      ],
+      "name": "MS Logo Slider",
+      "settings": {
+        "logos_mobile": "2",
+        "logos_desktop": "4.5",
+        "autoplay": true,
+        "seconds_per_logo": 4,
+        "background_color": "#000000",
+        "logo_height_mobile": 48,
+        "logo_height_desktop": 72,
+        "padding_mobile": 28,
+        "padding_desktop": 40
+      }
     }
   },
   "order": [
@@ -228,6 +301,7 @@
     "ms_usp_frJGqC",
     "ms_source_DC3aRr",
     "ms_sub_banner_VpdWhf",
-    "ms_featured_product_WUgDPA"
+    "ms_featured_product_WUgDPA",
+    "ms_sub_usp_jJrCh3"
   ]
 }
