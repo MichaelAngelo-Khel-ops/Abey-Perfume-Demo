@@ -122,6 +122,11 @@
     "view_store_information": "View store information",
     "sort": "Sort"
   },
+  "sections": {
+    "ms_hero_banner": {
+      "empty": "Add slides to this section."
+    }
+  },
   "blocks": {
     "contact_form": {
       "name": "Name",

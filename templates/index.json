@@ -15,22 +15,15 @@
         "slide_3Xnntj": {
           "type": "slide",
           "settings": {
-            "bg_image": "shopify://shop_images/Rectangle_4660.png",
-            "bg_color": "#0a0a0a",
+            "bg_color": "#f3f3f3",
             "overlay_color": "#000000",
-            "overlay_opacity": 30,
+            "overlay_opacity": 0,
             "product_image": "shopify://shop_images/Group_1000002842.png",
-            "image_position": "right",
-            "image_width": 45,
-            "eyebrow": "Perfume packaging perfected",
-            "heading": "Packaging Solutions Tailored for Your Brand",
-            "text": "<p>Elevate your fragrance experience with the premier perfume bottle packaging factory.</p>",
+            "heading": "New Designs",
             "button_label": "Shop now",
             "button_link": "",
             "show_arrow": true,
-            "eyebrow_color": "#c9a66b",
             "heading_color": "#ffffff",
-            "text_color": "#e6e6e6",
             "button_bg": "#00000000",
             "button_color": "#ffffff"
           }
@@ -39,19 +32,32 @@
       "block_order": [
         "slide_3Xnntj"
       ],
-      "name": "MS Hero Slider",
+      "name": "Sourcing and product slider",
       "settings": {
-        "autoplay": true,
+        "heading": "Sourcing Perfume Packaging from Abely",
+        "benefit_1_heading": "For Brand Owners",
+        "benefit_1_text": "<p>We walk through the journey of defining and realizing your brand's perfect perfume packaging solutions.</p>",
+        "benefit_2_heading": "For Manufacturers & Suppliers",
+        "benefit_2_text": "<p>Offering high-end quality options, our qualified production plant also enables the appreciable leadtime to match your plan.</p>",
+        "benefit_3_heading": "For Wholesalers",
+        "benefit_3_text": "<p>Besides perfect quality, we offer economical prices for you to satisfy your customers.</p>",
+        "autoplay": false,
         "autoplay_delay": 5,
-        "speed": 800,
-        "loop": true,
-        "effect": "fade",
+        "speed": 600,
+        "loop": false,
         "show_arrows": true,
-        "show_pagination": true,
-        "controls_color": "#ffffff",
-        "min_height": 560,
-        "padding_top": 40,
-        "padding_bottom": 40
+        "show_pagination": false,
+        "controls_color": "#292929",
+        "card_width": 200,
+        "mobile_card_width": 70,
+        "space_between": 14,
+        "card_height": 300,
+        "background_color": "#ffffff",
+        "heading_color": "#171717",
+        "copy_color": "#444444",
+        "accent_color": "#c49a62",
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     },
     "ms_usp_nRfFct": {

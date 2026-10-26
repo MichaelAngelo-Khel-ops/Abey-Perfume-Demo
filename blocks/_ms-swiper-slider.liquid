@@ -1,0 +1,176 @@
+{% stylesheet %}
+  .ms-swiper .swiper-slide {
+    position: relative;
+    width: var(--ms-card-width, 200px);
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    background: #f3f3f3;
+  }
+
+  .ms-swiper-slide__image-container,
+  .ms-swiper-slide__image,
+  .ms-swiper-slide__placeholder-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ms-swiper-slide__image {
+    object-fit: contain;
+    transition: transform 350ms ease;
+  }
+
+  .ms-swiper .swiper-slide:hover .ms-swiper-slide__image {
+    transform: scale(1.035);
+  }
+
+  .ms-swiper-slide__placeholder-image {
+    padding: 1.5rem;
+    color: rgb(0 0 0 / 18%);
+  }
+
+  .ms-swiper-slide__inner-content {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: rgb(34 34 34 / 88%);
+    color: #fff;
+    text-align: center;
+  }
+
+  .ms-swiper-slide__heading {
+    margin: 0;
+    color: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .ms-swiper-slide__link {
+    display: inline-flex;
+    min-height: 2.25rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid currentColor;
+    padding: 0.5rem 0.85rem;
+    color: inherit;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background-color 180ms ease, color 180ms ease;
+  }
+
+  .ms-swiper-slide__link:hover {
+    background: #fff;
+    color: #222;
+  }
+
+  .ms-swiper-slide__link svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ms-swiper .swiper-slide {
+      width: var(--ms-mobile-card-width, 75%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ms-swiper-slide__image,
+    .ms-swiper-slide__link {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+{% liquid
+  assign image = block.settings.image
+  assign heading = block.settings.heading
+  assign button_label = block.settings.button_label
+  assign link = block.settings.link
+  assign show_overlay = false
+  if heading != blank or button_label != blank and link != blank
+    assign show_overlay = true
+  endif
+%}
+
+<div class="swiper-slide" id="ms-swiper-slide-{{ block.id }}" {{ block.shopify_attributes }}>
+  <div class="ms-swiper-slide__image-container">
+    {% if image != blank %}
+      {{
+        image
+        | image_url: width: 900
+        | image_tag:
+          width: image.width,
+          height: image.height,
+          widths: '200, 400, 600, 900',
+          sizes: '(min-width: 750px) 18vw, 75vw',
+          class: 'ms-swiper-slide__image',
+          loading: 'lazy',
+          alt: image.alt
+      }}
+    {% else %}
+      {{ 'image' | placeholder_svg_tag: 'ms-swiper-slide__placeholder-image' }}
+    {% endif %}
+  </div>
+
+  {% if show_overlay %}
+    <div class="ms-swiper-slide__inner-content">
+      {% if heading != blank %}
+        <h3 class="ms-swiper-slide__heading">{{ heading | escape }}</h3>
+      {% endif %}
+      {% if button_label != blank and link != blank %}
+        <a class="ms-swiper-slide__link" href="{{ link | escape }}">
+          {{ button_label | escape }}
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+            <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+          </svg>
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+
+
+{%  schema  %} 
+    {
+        "name": "ms swiper slide",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "t:settings.image"
+          },
+          {
+              "type": "text",
+              "id": "heading",
+              "label": "t:settings.heading"
+          },
+          {
+              "type": "text",
+              "id": "button_label",
+              "label": "t:settings.label"
+          },
+          {
+              "type": "url",
+              "id": "link",
+              "label": "t:settings.link"
+          }
+        ],
+        "presets": [
+          {
+            "name": "ms Slide"
+          }
+        ]
+    }
+{% endschema %}

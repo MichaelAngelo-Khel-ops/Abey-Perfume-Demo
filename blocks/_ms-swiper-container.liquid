@@ -1,0 +1,199 @@
+{% stylesheet %}
+  .ms-swiper {
+    min-width: 0;
+  }
+
+  .ms-swiper__controls {
+    display: flex;
+    min-height: 2.5rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.75rem;
+  }
+
+  .ms-swiper .swiper-pagination {
+    position: static;
+    display: flex;
+    width: auto;
+    align-items: center;
+    gap: 0.2rem;
+    transform: none;
+  }
+
+  .ms-swiper .swiper-pagination-bullet {
+    width: 0.4rem;
+    height: 0.4rem;
+    margin: 0;
+    background: var(--ms-accent, #c9a66b);
+    opacity: 0.35;
+  }
+
+  .ms-swiper .swiper-pagination-bullet-active {
+    opacity: 1;
+  }
+
+  .ms-swiper__navigation {
+    display: flex;
+    gap: 0.5rem;
+    margin-inline-start: auto;
+  }
+
+  .ms-swiper .swiper-button-prev,
+  .ms-swiper .swiper-button-next {
+    position: static;
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    margin: 0;
+    place-items: center;
+    border: 1px solid var(--ms-accent, #c9a66b);
+    border-radius: 50%;
+    color: var(--ms-accent, #c9a66b);
+    transition: background-color 180ms ease, color 180ms ease;
+  }
+
+  .ms-swiper .swiper-button-prev::after,
+  .ms-swiper .swiper-button-next::after {
+    display: none;
+  }
+
+  .ms-swiper .swiper-button-prev:hover,
+  .ms-swiper .swiper-button-next:hover {
+    background: var(--ms-accent, #c9a66b);
+    color: #fff;
+  }
+
+  .ms-swiper .swiper-button-prev svg,
+  .ms-swiper .swiper-button-next svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .ms-swiper .swiper-button-disabled {
+    opacity: 0.4;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ms-swiper .swiper-button-prev,
+    .ms-swiper .swiper-button-next {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+{% liquid
+  assign slide_index_placeholder = '{index}'
+  assign slide_length_placeholder = '{length}'
+%}
+<div
+  class="ms-swiper"
+  id="ms-swiper-{{ block.id }}"
+  role="region"
+  aria-roledescription="carousel"
+  aria-label="{{ 'accessibility.slideshow' | t }}"
+  data-ms-slide-label="{{ 'accessibility.slide_status' | t: index: slide_index_placeholder, length: slide_length_placeholder | escape }}"
+  data-ms-swiper='{
+    "slidesPerView": "auto",
+    "spaceBetween": {{ block.settings.space_between }},
+    "loop": {{ block.settings.loop }},
+    "navigation": {{ block.settings.show_navigation }},
+    "pagination": {{ block.settings.show_pagination }}
+  }'
+  style="--ms-card-width: {{ block.settings.card_width }}px; --ms-mobile-card-width: {{ block.settings.mobile_card_width }}%;"
+  {{ block.shopify_attributes }}
+>
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      {% content_for 'blocks' %}
+    </div>
+  </div>
+
+  {% if block.settings.show_navigation or block.settings.show_pagination %}
+    <div class="ms-swiper__controls">
+      {% if block.settings.show_pagination %}
+        <div class="swiper-pagination" aria-label="{{ 'accessibility.slideshow' | t }}"></div>
+      {% endif %}
+      {% if block.settings.show_navigation %}
+        <div class="ms-swiper__navigation">
+          <button class="swiper-button-prev" type="button" aria-label="{{ 'accessibility.slideshow_previous' | t }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M19 12H5m0 0 7 7m-7-7 7-7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+            </svg>
+          </button>
+          <button class="swiper-button-next" type="button" aria-label="{{ 'accessibility.slideshow_next' | t }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M5 12h14m0 0-7-7m7 7-7 7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+            </svg>
+          </button>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "t:names.carousel",
+  "settings": [
+    {
+      "type": "range",
+      "id": "card_width",
+      "label": "t:settings.slide_width",
+      "min": 180,
+      "max": 360,
+      "step": 10,
+      "unit": "px",
+      "default": 200
+    },
+    {
+      "type": "range",
+      "id": "mobile_card_width",
+      "label": "t:settings.width_mobile",
+      "min": 65,
+      "max": 85,
+      "step": 5,
+      "unit": "%",
+      "default": 75
+    },
+    {
+      "type": "range",
+      "id": "space_between",
+      "label": "t:settings.slide_spacing",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "checkbox",
+      "id": "loop",
+      "label": "t:settings.loop",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "t:settings.navigation",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "t:settings.pagination",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "_ms-swiper-slider"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.carousel"
+    }
+  ]
+}
+{% endschema %}
