@@ -1,0 +1,370 @@
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .ms-showcase {
+    --ms-showcase-accent: {{ section.settings.accent_color }};
+    --ms-showcase-text: #2b2b2b;
+    --ms-showcase-gutter: 24px;
+    padding: 40px 0;
+    overflow: hidden;
+    color: var(--ms-showcase-text);
+  }
+
+  .ms-showcase__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-left: var(--ms-showcase-gutter); /* no right padding so slides bleed off the edge */
+  }
+
+  .ms-showcase__content {
+    padding-right: var(--ms-showcase-gutter);
+  }
+
+  .ms-showcase__heading {
+    margin: 0 0 24px;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 1.15;
+  }
+
+  .ms-showcase__features {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .ms-showcase__feature-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .ms-showcase__feature-icon {
+    flex: 0 0 auto;
+    width: 20px;
+    height: 20px;
+    color: var(--ms-showcase-accent);
+  }
+
+  .ms-showcase__feature-title {
+    margin: 0;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .ms-showcase__feature-text {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .ms-showcase__slider {
+    min-width: 0; /* lets the grid child shrink so Swiper can measure it */
+  }
+
+  .ms-showcase__slide.swiper-slide {
+    width: 68%;
+    max-width: 280px;
+    height: auto;
+  }
+
+  .ms-showcase__card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: #efefef;
+  }
+
+  .ms-showcase__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .ms-showcase__placeholder {
+    width: 60%;
+    height: auto;
+    opacity: 0.4;
+  }
+
+  .ms-showcase__overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: rgba(43, 43, 43, 0.92);
+    color: #fff;
+  }
+
+  .ms-showcase__overlay-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .ms-showcase__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border: 1px solid #fff;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .ms-showcase__button:hover {
+    background: #fff;
+    color: var(--ms-showcase-text);
+  }
+
+  .ms-showcase__button svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ms-showcase {
+      --ms-showcase-gutter: 48px;
+      padding: 64px 0;
+    }
+
+    .ms-showcase__inner {
+      grid-template-columns: minmax(280px, 0.8fr) 2fr;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .ms-showcase__heading {
+      font-size: 2.5rem;
+    }
+
+    .ms-showcase__slide.swiper-slide {
+      width: 280px;
+    }
+  }
+</style>
+
+<section class="ms-showcase" id="ms-showcase-{{ section.id }}">
+  <div class="ms-showcase__inner">
+    <div class="ms-showcase__content">
+      {% if section.settings.heading != blank %}
+        <h2 class="ms-showcase__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      <div class="ms-showcase__features">
+        {% for block in section.blocks %}
+          {% if block.type == 'feature' %}
+            <div class="ms-showcase__feature" {{ block.shopify_attributes }}>
+              <div class="ms-showcase__feature-header">
+                <svg class="ms-showcase__feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M7.5 12.5l3 3 6-6.5"></path>
+                </svg>
+                <h3 class="ms-showcase__feature-title">{{ block.settings.title }}</h3>
+              </div>
+              <p class="ms-showcase__feature-text">{{ block.settings.text }}</p>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="ms-showcase__slider" data-ms-showcase-slider>
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            {% if block.type == 'slide' %}
+              <div class="swiper-slide ms-showcase__slide" {{ block.shopify_attributes }}>
+                <div class="ms-showcase__card">
+                  {% if block.settings.image != blank %}
+                    {{
+                      block.settings.image
+                      | image_url: width: 600
+                      | image_tag:
+                        class: 'ms-showcase__image',
+                        loading: 'lazy',
+                        widths: '300, 450, 600',
+                        sizes: '(min-width: 750px) 280px, 68vw'
+                    }}
+                  {% else %}
+                    {{ 'image' | placeholder_svg_tag: 'ms-showcase__placeholder' }}
+                  {% endif %}
+
+                  {% if block.settings.overlay_title != blank or block.settings.button_label != blank %}
+                    <div class="ms-showcase__overlay">
+                      {% if block.settings.overlay_title != blank %}
+                        <p class="ms-showcase__overlay-title">{{ block.settings.overlay_title }}</p>
+                      {% endif %}
+                      {% if block.settings.button_label != blank %}
+                        <a href="{{ block.settings.button_link | default: '#' }}" class="ms-showcase__button">
+                          {{ block.settings.button_label }}
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M4 12h16M14 6l6 6-6 6"></path>
+                          </svg>
+                        </a>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
+
+<script>
+(() => {
+  const root = document.getElementById('ms-showcase-{{ section.id }}');
+  if (!root) return;
+
+  const sliderRoot = root.querySelector('[data-ms-showcase-slider]');
+  const el = sliderRoot?.querySelector('.swiper');
+  if (!el) return;
+
+  const initSlider = () => {
+    if (el.swiper) return true; // already initialized
+    if (typeof window.Swiper !== 'function') return false;
+
+    const slideCount = el.querySelectorAll(':scope > .swiper-wrapper > .swiper-slide').length;
+
+    try {
+      new window.Swiper(el, {
+        slidesPerView: 'auto',
+        spaceBetween: 16,
+        grabCursor: true,
+        watchOverflow: true,
+        allowTouchMove: slideCount > 1,
+        breakpoints: {
+          750: { spaceBetween: 24 },
+        },
+      });
+    } catch (error) {
+      console.error('MS Showcase: Swiper initialization failed.', error);
+    }
+
+    return true;
+  };
+
+  // Swiper may still be loading, so retry briefly, then on window load.
+  if (!initSlider()) {
+    let tries = 0;
+    const timer = setInterval(() => {
+      tries += 1;
+      if (initSlider() || tries > 50) clearInterval(timer);
+    }, 100);
+    window.addEventListener('load', initSlider, { once: true });
+  }
+
+  // Theme editor: jump to the slide when its block is selected
+  root.addEventListener('shopify:block:select', (event) => {
+    const swiper = el.swiper;
+    if (!swiper) return;
+
+    const slide = Array.from(swiper.wrapperEl.children).find((child) =>
+      child.contains(event.target)
+    );
+    if (slide) swiper.slideTo(Array.from(swiper.wrapperEl.children).indexOf(slide), 0);
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "MS Sourcing Showcase",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Sourcing Perfume Packaging from Abely"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color (icons)",
+      "default": "#b89b6a"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "For Brand Owners" },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "We walk through the journey of defining and realizing your brand's perfect packaging solutions."
+        }
+      ]
+    },
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "overlay_title", "label": "Overlay title" },
+        { "type": "text", "id": "button_label", "label": "Button label" },
+        { "type": "url", "id": "button_link", "label": "Button link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "MS Sourcing Showcase",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "For Brand Owners",
+            "text": "We walk through the journey of defining and realizing your brand's perfect packaging solutions."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "For Manufacturers & Suppliers",
+            "text": "Offering high-end quality options, our qualified production plant also enables the appreciable leadtime to match your plan."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "For Wholesalers",
+            "text": "Besides perfect quality, we offer economical prices for you to satisfy your customers."
+          }
+        },
+        {
+          "type": "slide",
+          "settings": { "overlay_title": "New Designs", "button_label": "Shop Now" }
+        },
+        { "type": "slide" },
+        { "type": "slide" }
+      ]
+    }
+  ]
+}
+{% endschema %}
