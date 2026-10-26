@@ -26,7 +26,7 @@
             "heading": "Packaging Solutions Tailored for Your Brand",
             "text": "<p>Elevate your fragrance experience with the premier perfume bottle packaging factory.</p>",
             "button_label": "Shop now",
-            "button_link": "",
+            "button_link": "shopify://collections/all",
             "show_arrow": true,
             "eyebrow_color": "#c9a66b",
             "heading_color": "#ffffff",
@@ -151,7 +151,7 @@
             "image": "shopify://shop_images/Create-Perfume-Bottle-Design-ABD2305Z-100-1-Abely_1_1.png",
             "overlay_title": "New Designs",
             "button_label": "Shop Now",
-            "button_link": ""
+            "button_link": "shopify://products/glass-perfume-bottle-abb578-100"
           }
         },
         "slide_PDdpDQ": {
@@ -186,11 +186,48 @@
         "heading": "Sourcing Perfume Packaging from Abely",
         "accent_color": "#b89b6a"
       }
+    },
+    "ms_sub_banner_VpdWhf": {
+      "type": "ms-sub-banner",
+      "name": "MS Sub Banner",
+      "settings": {
+        "image": "shopify://shop_images/Rectangle_4663.png",
+        "mobile_image": "shopify://shop_images/Rectangle_4663.png",
+        "image_position_desktop": "right",
+        "image_position_mobile": "right",
+        "lazy_load": false,
+        "heading": "Your All-Inclusive Glass Bottle Packaging Solution",
+        "text": "<p>Elevate Your Brand, Seal the Scent, and Shine with Style! Exclusive Offer Inside – Craft Your Signature Look Today!</p>",
+        "button_label": "Shop Now",
+        "button_link": "shopify://collections/all",
+        "text_color": "#ffffff",
+        "overlay_opacity": 50,
+        "min_height_desktop": 460,
+        "min_height_mobile": 420
+      }
+    },
+    "ms_featured_product_WUgDPA": {
+      "type": "ms-featured-product",
+      "name": "MS Featured Products",
+      "settings": {
+        "heading": "Featured Products",
+        "text": "Act quickly to acquire our finest products at discounted rates, ideal for sharing with friends and family",
+        "collection": "perfume",
+        "product_limit": 3,
+        "columns": 3,
+        "button_label": "Shop Now",
+        "button_link": "shopify://collections/all",
+        "new_tag": "new",
+        "show_icons": true,
+        "accent_color": "#b89b6a"
+      }
     }
   },
   "order": [
     "ms_hero_banner_Bb7xUx",
     "ms_usp_frJGqC",
-    "ms_source_DC3aRr"
+    "ms_source_DC3aRr",
+    "ms_sub_banner_VpdWhf",
+    "ms_featured_product_WUgDPA"
   ]
 }
