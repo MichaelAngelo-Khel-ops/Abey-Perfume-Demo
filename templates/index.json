@@ -92,7 +92,7 @@
         "speed": 500,
         "autoplay": false,
         "autoplay_delay": 4,
-        "mobile_align": "left",
+        "mobile_align": "center",
         "icon_size": 32,
         "gap": 16,
         "padding_top": 20,
