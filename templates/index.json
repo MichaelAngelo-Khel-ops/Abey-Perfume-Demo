@@ -31,7 +31,7 @@
             "eyebrow_color": "#c9a66b",
             "heading_color": "#ffffff",
             "text_color": "#e6e6e6",
-            "button_bg": "#00000000",
+            "button_bg": "rgba(0,0,0,0)",
             "button_color": "#ffffff"
           }
         },
@@ -52,7 +52,7 @@
             "eyebrow_color": "#c9a66b",
             "heading_color": "#ffffff",
             "text_color": "#e6e6e6",
-            "button_bg": "#00000000",
+            "button_bg": "rgba(0,0,0,0)",
             "button_color": "#ffffff"
           }
         }
@@ -120,10 +120,77 @@
         "padding_top": 20,
         "padding_bottom": 20
       }
+    },
+    "ms_source_DC3aRr": {
+      "type": "ms-source",
+      "blocks": {
+        "feature_URCXU3": {
+          "type": "feature",
+          "settings": {
+            "title": "For Brand Owners",
+            "text": "We walk through the journey of defining and realizing your brand's perfect packaging solutions."
+          }
+        },
+        "feature_4WY6zF": {
+          "type": "feature",
+          "settings": {
+            "title": "For Manufacturers & Suppliers",
+            "text": "Offering high-end quality options, our qualified production plant also enables the appreciable leadtime to match your plan."
+          }
+        },
+        "feature_NXGCRj": {
+          "type": "feature",
+          "settings": {
+            "title": "For Wholesalers",
+            "text": "Besides perfect quality, we offer economical prices for you to satisfy your customers."
+          }
+        },
+        "slide_qTccBU": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Create-Perfume-Bottle-Design-ABD2305Z-100-1-Abely_1_1.png",
+            "overlay_title": "New Designs",
+            "button_label": "Shop Now",
+            "button_link": ""
+          }
+        },
+        "slide_PDdpDQ": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/ABB606-100-3_1_1.png",
+            "overlay_title": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "slide_Vq7hxU": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Double-Openning-Box-6_1_1.png",
+            "overlay_title": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_URCXU3",
+        "feature_4WY6zF",
+        "feature_NXGCRj",
+        "slide_qTccBU",
+        "slide_PDdpDQ",
+        "slide_Vq7hxU"
+      ],
+      "name": "MS Sourcing Showcase",
+      "settings": {
+        "heading": "Sourcing Perfume Packaging from Abely",
+        "accent_color": "#b89b6a"
+      }
     }
   },
   "order": [
     "ms_hero_banner_Bb7xUx",
-    "ms_usp_frJGqC"
+    "ms_usp_frJGqC",
+    "ms_source_DC3aRr"
   ]
 }
