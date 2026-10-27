@@ -1,0 +1,500 @@
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    --ms-offer-bg: {{ section.settings.background_color }};
+    --ms-offer-text: {{ section.settings.text_color }};
+    --ms-offer-accent: {{ section.settings.accent_color }};
+  }
+
+  #shopify-section-{{ section.id }} .ms-offer {
+    padding: 39px 0 0;
+    color: var(--ms-offer-text);
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .ms-offer__container {
+    display: flex;
+    align-items: center;
+    min-height: 274px;
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: var(--ms-offer-bg);
+    isolation: isolate;
+  }
+
+  #shopify-section-{{ section.id }} .ms-offer__container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      145deg,
+      transparent 20%,
+      rgba(255,255,255,.13) 45%,
+      transparent 67%
+    );
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  #shopify-section-{{ section.id }} .ms-offer__content {
+    position: relative;
+    z-index: 2;
+    width: 55%;
+    padding: 42px 0 42px 6.6%;
+  }
+
+  #shopify-section-{{ section.id }} .ms-offer__heading {
+    margin: 0 0 4px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(26px, 3.5vw, 42px);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: .01em;
+  }
+
+  #shopify-section-{{ section.id }} .ms-offer__description {
+    margin: 0 0 18px;
+    font-size: 12px;
+    line-height: 1.6;
+    opacity: .85;
+  }
+
+  #shopify-section-{{ section.id }} .ms-offer__timer {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 15px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-offer__time-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-offer__number {
+    display: grid;
+    place-items: center;
+    min-width: 36px;
+    min-height: 35px;
+    padding: 3px 5px;
+    background: var(--ms-offer-accent);
+    color: #fff;
+    font-size: 21px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .ms-offer__label {
+    font-size: 10px;
+    line-height: 1.3;
+  }
+
+  #shopify-section-{{ section.id }} .ms-offer__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    min-height: 38px;
+    padding: 9px 13px;
+    border: 1px solid rgba(255,255,255,.75);
+    background: transparent;
+    color: inherit;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .09em;
+    line-height: 1;
+    text-decoration: none;
+    transition: background .2s ease, color .2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .ms-offer__button:hover {
+    background: #fff;
+    color: #171717;
+  }
+
+  #shopify-section-{{ section.id }} .ms-offer__button:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-offer__arrow {
+    font-size: 24px;
+    line-height: .7;
+    font-weight: 300;
+  }
+
+  #shopify-section-{{ section.id }} .ms-offer__media {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 49%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  #shopify-section-{{ section.id }} .ms-offer__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .ms-offer__expired {
+    margin: 0 0 16px;
+    font-size: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-offer__timer[hidden],
+  #shopify-section-{{ section.id }} .ms-offer__expired[hidden] {
+    display: none;
+  }
+
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .ms-offer {
+      padding: 20px 12px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-offer__container {
+      display: flex;
+      flex-direction: column-reverse;
+      min-height: 0;
+    }
+
+    #shopify-section-{{ section.id }} .ms-offer__media {
+      position: relative;
+      inset: auto;
+      width: 100%;
+      height: 250px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-offer__content {
+      width: 100%;
+      padding: 24px 20px 32px;
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .ms-offer__heading {
+      font-size: 30px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-offer__description {
+      font-size: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-offer__timer {
+      justify-content: center;
+      gap: 14px;
+    }
+  }
+{% endstyle %}
+
+{% liquid
+  assign ms_image = section.settings.image
+  assign ms_end_date = section.settings.end_date | strip
+%}
+
+<section
+  id="ms-offer-{{ section.id }}"
+  class="ms-offer"
+  data-ms-offer
+  data-ms-end="{{ ms_end_date | escape }}"
+  data-ms-expired-behavior="{{ section.settings.expired_behavior }}"
+>
+  <div class="ms-offer__container">
+
+    <div class="ms-offer__content">
+      {% if section.settings.heading != blank %}
+        <h2 class="ms-offer__heading">
+          {{ section.settings.heading | escape }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <p class="ms-offer__description">
+          {{ section.settings.description | escape }}
+        </p>
+      {% endif %}
+
+      {% if section.settings.show_timer %}
+        <div
+          class="ms-offer__timer"
+          data-ms-timer
+          role="timer"
+          aria-label="Time remaining for this promotion"
+        >
+          {% assign ms_units = 'days,hours,minutes,seconds' | split: ',' %}
+
+          {% for unit in ms_units %}
+            <div class="ms-offer__time-unit">
+              <span
+                class="ms-offer__number"
+                data-ms-unit="{{ unit }}"
+              >00</span>
+              <span class="ms-offer__label">
+                {{ unit | capitalize }}
+              </span>
+            </div>
+          {% endfor %}
+        </div>
+
+        <p
+          class="ms-offer__expired"
+          data-ms-expired
+          hidden
+        >
+          {{ section.settings.expired_text | escape }}
+        </p>
+      {% endif %}
+
+      {% if section.settings.button_label != blank %}
+        <a
+          class="ms-offer__button"
+          href="{{ section.settings.button_link | default: routes.all_products_collection_url }}"
+        >
+          {{ section.settings.button_label | escape }}
+          <span class="ms-offer__arrow" aria-hidden="true">
+            &rarr;
+          </span>
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="ms-offer__media">
+      {% if ms_image != blank %}
+        {{
+          ms_image
+          | image_url: width: 1200
+          | image_tag:
+            class: 'ms-offer__image',
+            loading: 'lazy',
+            widths: '400, 600, 800, 1000, 1200',
+            sizes: '(max-width: 749px) 100vw, 49vw',
+            alt: ms_image.alt
+        }}
+      {% else %}
+        <img
+          class="ms-offer__image"
+          src="{{ 'croped-abely-image.png' | asset_url }}"
+          alt="Luxury perfume gift box"
+          width="800"
+          height="625"
+          loading="lazy"
+        >
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  (() => {
+    const root = document.getElementById(
+      'ms-offer-{{ section.id }}'
+    );
+
+    if (!root) return;
+
+    if (root.msCountdownInterval) {
+      clearInterval(root.msCountdownInterval);
+    }
+
+    const timer = root.querySelector('[data-ms-timer]');
+    const expired = root.querySelector('[data-ms-expired]');
+
+    if (!timer) return;
+
+    const deadline = Date.parse(root.dataset.msEnd || '');
+    const behavior = root.dataset.msExpiredBehavior;
+    const sectionContainer = root.querySelector(
+      '.ms-offer__container'
+    );
+
+    const units = {
+      days: root.querySelector('[data-ms-unit="days"]'),
+      hours: root.querySelector('[data-ms-unit="hours"]'),
+      minutes: root.querySelector('[data-ms-unit="minutes"]'),
+      seconds: root.querySelector('[data-ms-unit="seconds"]')
+    };
+
+    const format = (number) =>
+      String(number).padStart(2, '0');
+
+    function updateCountdown() {
+      const remaining = Number.isFinite(deadline)
+        ? Math.max(0, deadline - Date.now())
+        : 0;
+
+      const totalSeconds = Math.floor(remaining / 1000);
+
+      const values = {
+        days: Math.floor(totalSeconds / 86400),
+        hours: Math.floor((totalSeconds % 86400) / 3600),
+        minutes: Math.floor((totalSeconds % 3600) / 60),
+        seconds: totalSeconds % 60
+      };
+
+      Object.entries(values).forEach(([unit, value]) => {
+        if (units[unit]) {
+          units[unit].textContent = format(value);
+        }
+      });
+
+      if (remaining === 0) {
+        clearInterval(root.msCountdownInterval);
+        root.msCountdownInterval = null;
+
+        if (behavior === 'hide') {
+          sectionContainer.hidden = true;
+        } else if (behavior === 'message') {
+          timer.hidden = true;
+          if (expired) expired.hidden = false;
+        }
+      }
+    }
+
+    updateCountdown();
+
+    if (Number.isFinite(deadline) && deadline > Date.now()) {
+      root.msCountdownInterval = setInterval(
+        updateCountdown,
+        1000
+      );
+    }
+
+    document.addEventListener(
+      'shopify:section:unload',
+      (event) => {
+        if (event.detail.sectionId === '{{ section.id }}') {
+          clearInterval(root.msCountdownInterval);
+        }
+      },
+      { once: true }
+    );
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "MS Limited Time Offer",
+  "tag": "section",
+  "class": "ms-offer-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Limited Time Offer"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Discover our exclusive perfume boxes collection - Order Now!"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product image"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Countdown settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_timer",
+      "label": "Show countdown",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "end_date",
+      "label": "Promotion end date and time",
+      "default": "2026-11-30T23:59:00+08:00",
+      "info": "Use ISO 8601 format with timezone, e.g. 2026-11-30T23:59:00+08:00"
+    },
+    {
+      "type": "select",
+      "id": "expired_behavior",
+      "label": "When countdown expires",
+      "options": [
+        {
+          "value": "message",
+          "label": "Show expired message"
+        },
+        {
+          "value": "zero",
+          "label": "Display all zeros"
+        },
+        {
+          "value": "hide",
+          "label": "Hide banner"
+        }
+      ],
+      "default": "message"
+    },
+    {
+      "type": "text",
+      "id": "expired_text",
+      "label": "Expired message",
+      "default": "This offer has ended."
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#171717"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Countdown color",
+      "default": "#B79B76"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum banner width",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1200
+    }
+  ],
+  "presets": [
+    {
+      "name": "MS Limited Time Offer"
+    }
+  ]
+}
+{% endschema %}
