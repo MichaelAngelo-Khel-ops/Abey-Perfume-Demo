@@ -6,11 +6,13 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "main": {
-      "type": "ms-pdp-section"
-    },
+      "type": "ms-pdp-section",
+      "settings": {}
+    }
   },
   "order": [
     "main"

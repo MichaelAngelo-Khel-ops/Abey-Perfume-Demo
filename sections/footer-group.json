@@ -56,7 +56,7 @@
         "logo_width_desktop": 180,
         "logo_text": "Abely",
         "logo_subtext": "Perfume",
-        "menu": "footer",
+        "menu": "abey-main-menu",
         "copyright_text": "Abely Perfume. All rights reserved.",
         "background_color": "#000000",
         "text_color": "#ffffff"
