@@ -1,0 +1,1320 @@
+
+{% comment %}
+  MS Perfume PDP
+  Shopify Online Store 2.0
+
+  Dependencies (already loaded in theme.liquid):
+  - swiper-bundle.min.css
+  - swiper-bundle.min.js
+{% endcomment %}
+
+{% liquid
+  assign ms_product = product
+  if ms_product == blank
+    assign ms_product = section.settings.featured_product
+  endif
+
+  assign ms_variant = ms_product.selected_or_first_available_variant
+  assign ms_form_id = 'ms-product-form-' | append: section.id
+  assign ms_gallery_id = 'ms-gallery-' | append: section.id
+%}
+
+<style>
+  /* ================================
+     1. SECTION TOKENS & RESET
+  ================================= */
+
+  #shopify-section-{{ section.id }} {
+    --ms-accent: {{ section.settings.accent_color }};
+    --ms-text: #111111;
+    --ms-muted: #666666;
+    --ms-line: #d6d6d6;
+    --ms-background: {{ section.settings.background_color }};
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp,
+  #shopify-section-{{ section.id }} .ms-pdp * {
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp {
+    background: var(--ms-background);
+    color: var(--ms-text);
+    padding: 52px 24px 60px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__container {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  /* ================================
+     2. EDITORIAL HEADING
+  ================================= */
+
+  #shopify-section-{{ section.id }} .ms-pdp__intro {
+    max-width: 650px;
+    margin: 0 auto 34px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__heading {
+    margin: 0 0 8px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(28px, 3vw, 38px);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__intro-text {
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--ms-muted);
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__intro-text p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__intro--mobile {
+    display: none;
+  }
+
+  /* ================================
+     3. PRODUCT GRID
+  ================================= */
+
+  #shopify-section-{{ section.id }} .ms-pdp__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+    gap: 44px;
+    align-items: start;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__gallery,
+  #shopify-section-{{ section.id }} .ms-pdp__details {
+    min-width: 0;
+  }
+
+  /* ================================
+     4. MAIN IMAGE SWIPER
+  ================================= */
+
+  #shopify-section-{{ section.id }} .ms-pdp__main-swiper {
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.055);
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__main-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__main-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    background: #f5f5f5;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__placeholder svg {
+    width: 65%;
+    height: auto;
+  }
+
+  /* ================================
+     5. THUMBNAIL SWIPER
+  ================================= */
+
+  #shopify-section-{{ section.id }} .ms-pdp__thumb-swiper {
+    margin-top: 12px;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__thumb-slide {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background: #fff;
+    border: 1px solid transparent;
+    opacity: 0.85;
+    cursor: pointer;
+    transition:
+      border-color 0.25s ease,
+      opacity 0.25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__thumb-slide.swiper-slide-thumb-active {
+    border-color: var(--ms-accent);
+    opacity: 1;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__thumb-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__thumb-slide:focus-visible {
+    outline: 2px solid var(--ms-text);
+    outline-offset: -3px;
+  }
+
+  /* ================================
+     6. PRODUCT DETAILS
+  ================================= */
+
+  #shopify-section-{{ section.id }} .ms-pdp__details {
+    padding-top: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__title {
+    margin: 0 0 18px;
+    font-size: clamp(20px, 2vw, 25px);
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.35px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__price-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__price {
+    color: var(--ms-accent);
+    font-size: clamp(24px, 2.7vw, 30px);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__compare-price {
+    font-size: 14px;
+    color: var(--ms-muted);
+    text-decoration: line-through;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__description {
+    margin: 0 0 20px;
+    font-size: 12px;
+    line-height: 1.85;
+    color: #555;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__description p {
+    margin: 0 0 10px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__description p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ================================
+     7. PRODUCT SPECIFICATIONS
+  ================================= */
+
+  #shopify-section-{{ section.id }} .ms-pdp__specs {
+    padding-top: 18px;
+    margin-bottom: 22px;
+    border-top: 1px solid var(--ms-line);
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__spec-list {
+    margin: 0;
+    padding-left: 18px;
+    list-style-type: disc;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__spec-item {
+    padding: 2px 0;
+    font-size: 12px;
+    line-height: 1.65;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__spec-label {
+    font-weight: 700;
+  }
+
+  /* ================================
+     8. VARIANTS & PRODUCT FORM
+  ================================= */
+
+  #shopify-section-{{ section.id }} .ms-pdp__variant-field {
+    margin-bottom: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__variant-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__variant-select {
+    width: 100%;
+    max-width: 360px;
+    min-height: 42px;
+    padding: 10px 12px;
+    border: 1px solid var(--ms-line);
+    border-radius: 0;
+    color: var(--ms-text);
+    background: #fff;
+    font: inherit;
+    font-size: 13px;
+  }
+
+  /* ================================
+     9. ACTION BUTTONS
+  ================================= */
+
+  #shopify-section-{{ section.id }} .ms-pdp__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__add-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    min-height: 43px;
+    padding: 10px 17px;
+    border: 1px solid var(--ms-accent);
+    border-radius: 0;
+    background: transparent;
+    color: var(--ms-accent);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition:
+      background 0.25s ease,
+      color 0.25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__add-button:hover:not(:disabled) {
+    background: var(--ms-accent);
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__add-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__cart-icon {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__wishlist {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 43px;
+    height: 43px;
+    padding: 0;
+    border: 1px solid var(--ms-accent);
+    border-radius: 0;
+    background: var(--ms-accent);
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__wishlist:hover {
+    opacity: 0.8;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__wishlist svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__wishlist[aria-pressed="true"] svg {
+    fill: currentColor;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__sample {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    min-height: 44px;
+    border: 1px solid var(--ms-accent);
+    background: transparent;
+    color: var(--ms-accent);
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition:
+      background 0.25s ease,
+      color 0.25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .ms-pdp__sample:hover {
+    background: var(--ms-accent);
+    color: #fff;
+  }
+
+  /* ================================
+     10. TABLET
+  ================================= */
+
+  @media (max-width: 900px) {
+    #shopify-section-{{ section.id }} .ms-pdp {
+      padding: 42px 22px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__layout {
+      gap: 28px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__title {
+      font-size: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__description,
+    #shopify-section-{{ section.id }} .ms-pdp__spec-item {
+      font-size: 11px;
+    }
+  }
+
+  /* ================================
+     11. MOBILE
+  ================================= */
+
+  @media (max-width: 600px) {
+    #shopify-section-{{ section.id }} .ms-pdp {
+      padding: 32px 20px 42px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__container {
+      max-width: 440px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__intro--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__intro--mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__intro {
+      margin-bottom: 28px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__heading {
+      margin-bottom: 10px;
+      font-size: 28px;
+      letter-spacing: -0.5px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__intro-text {
+      max-width: 290px;
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 26px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__main-swiper {
+      box-shadow: none;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__main-slide {
+      aspect-ratio: 1 / 1;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__thumb-swiper {
+      margin-top: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__details {
+      padding-top: 0;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__title {
+      margin-bottom: 14px;
+      font-size: 21px;
+      line-height: 1.35;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__price-row {
+      margin-bottom: 15px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__price {
+      font-size: 23px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__description {
+      margin-bottom: 20px;
+      font-size: 12px;
+      line-height: 1.75;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__specs {
+      padding-top: 16px;
+      margin-bottom: 22px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__spec-item {
+      padding: 3px 0;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__add-button {
+      width: 100%;
+      min-height: 46px;
+      background: var(--ms-accent);
+      color: #fff;
+      font-size: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__add-button:hover:not(:disabled) {
+      background: transparent;
+      color: var(--ms-accent);
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__wishlist {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .ms-pdp__sample {
+      display: flex;
+      width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .ms-pdp *,
+    #shopify-section-{{ section.id }} .ms-pdp *::before,
+    #shopify-section-{{ section.id }} .ms-pdp *::after {
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+
+{% comment %}
+  ================================
+  12. SECTION CONTENT
+  ================================
+{% endcomment %}
+
+<section
+  class="ms-pdp"
+  data-ms-pdp
+  data-ms-section-id="{{ section.id }}"
+  {% if ms_product != blank %}
+    data-ms-product-id="{{ ms_product.id }}"
+  {% endif %}
+>
+  <div class="ms-pdp__container">
+
+    {% comment %}
+      Desktop editorial heading
+    {% endcomment %}
+
+    <header class="ms-pdp__intro ms-pdp__intro--desktop">
+      {% if section.settings.desktop_heading != blank %}
+        <h2 class="ms-pdp__heading">
+          {{ section.settings.desktop_heading | escape }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.desktop_subheading != blank %}
+        <div class="ms-pdp__intro-text">
+          {{ section.settings.desktop_subheading }}
+        </div>
+      {% endif %}
+    </header>
+
+    {% comment %}
+      Mobile editorial heading
+    {% endcomment %}
+
+    <header class="ms-pdp__intro ms-pdp__intro--mobile">
+      {% if section.settings.mobile_heading != blank %}
+        <h2 class="ms-pdp__heading">
+          {{ section.settings.mobile_heading | escape }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.mobile_subheading != blank %}
+        <div class="ms-pdp__intro-text">
+          {{ section.settings.mobile_subheading }}
+        </div>
+      {% endif %}
+    </header>
+
+    {% if ms_product != blank %}
+
+      <div class="ms-pdp__layout">
+
+        {% comment %}
+          ================================
+          PRODUCT IMAGE GALLERY
+          ================================
+        {% endcomment %}
+
+        <div class="ms-pdp__gallery" id="{{ ms_gallery_id }}">
+
+          <div
+            class="swiper ms-pdp__main-swiper"
+            aria-label="Product image gallery"
+          >
+            <div class="swiper-wrapper">
+
+              {% for ms_media in ms_product.media %}
+                {% if ms_media.media_type == 'image' %}
+
+                  <div
+                    class="swiper-slide ms-pdp__main-slide"
+                    data-ms-media-id="{{ ms_media.id }}"
+                  >
+                    {{
+                      ms_media.preview_image
+                      | image_url: width: 1400
+                      | image_tag:
+                        class: 'ms-pdp__main-image',
+                        loading: 'lazy',
+                        widths: '360, 540, 720, 960, 1200, 1400',
+                        sizes: '(max-width: 600px) calc(100vw - 40px), (max-width: 900px) 45vw, 520px'
+                    }}
+                  </div>
+
+                {% endif %}
+              {% endfor %}
+
+            </div>
+          </div>
+
+          {% comment %}
+            Thumbnail gallery
+          {% endcomment %}
+
+          <div
+            class="swiper ms-pdp__thumb-swiper"
+            aria-label="Product image thumbnails"
+          >
+            <div class="swiper-wrapper">
+
+              {% for ms_media in ms_product.media %}
+                {% if ms_media.media_type == 'image' %}
+
+                  <div
+                    class="swiper-slide ms-pdp__thumb-slide"
+                    role="button"
+                    tabindex="0"
+                    aria-label="View product image {{ forloop.index }}"
+                  >
+                    {{
+                      ms_media.preview_image
+                      | image_url: width: 250
+                      | image_tag:
+                        class: 'ms-pdp__thumb-image',
+                        loading: 'lazy',
+                        widths: '100, 150, 200, 250',
+                        sizes: '(max-width: 600px) 25vw, 120px'
+                    }}
+                  </div>
+
+                {% endif %}
+              {% endfor %}
+
+            </div>
+          </div>
+
+        </div>
+
+        {% comment %}
+          ================================
+          PRODUCT INFORMATION
+          ================================
+        {% endcomment %}
+
+        <div class="ms-pdp__details">
+
+          <h1 class="ms-pdp__title">
+            {{ ms_product.title | escape }}
+          </h1>
+
+          <div class="ms-pdp__price-row">
+            <span class="ms-pdp__price" data-ms-price>
+              {{ ms_variant.price | money }}
+            </span>
+
+            <s
+              class="ms-pdp__compare-price"
+              data-ms-compare-price
+              {% unless ms_variant.compare_at_price > ms_variant.price %}
+                hidden
+              {% endunless %}
+            >
+              {% if ms_variant.compare_at_price > ms_variant.price %}
+                {{ ms_variant.compare_at_price | money }}
+              {% endif %}
+            </s>
+          </div>
+
+          <div class="ms-pdp__description">
+            {% if section.settings.custom_description != blank %}
+              {{ section.settings.custom_description }}
+            {% else %}
+              {{ ms_product.description }}
+            {% endif %}
+          </div>
+
+          {% comment %}
+            Reorderable specifications
+          {% endcomment %}
+
+          {% assign ms_spec_count = 0 %}
+
+          {% for block in section.blocks %}
+            {% if block.type == 'specification' %}
+              {% assign ms_spec_count = ms_spec_count | plus: 1 %}
+            {% endif %}
+          {% endfor %}
+
+          {% if ms_spec_count > 0 %}
+            <div class="ms-pdp__specs">
+              <ul class="ms-pdp__spec-list">
+
+                {% for block in section.blocks %}
+                  {% if block.type == 'specification' %}
+                    <li
+                      class="ms-pdp__spec-item"
+                      {{ block.shopify_attributes }}
+                    >
+                      {% if block.settings.label != blank %}
+                        <span class="ms-pdp__spec-label">
+                          {{ block.settings.label | escape }}:
+                        </span>
+                      {% endif %}
+
+                      <span class="ms-pdp__spec-value">
+                        {{ block.settings.value | escape }}
+                      </span>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+
+              </ul>
+            </div>
+          {% endif %}
+
+          {% comment %}
+            ================================
+            SHOPIFY PRODUCT FORM
+            ================================
+          {% endcomment %}
+
+          {% form 'product', ms_product, id: ms_form_id %}
+
+            {% if ms_product.has_only_default_variant %}
+              <input
+                type="hidden"
+                name="id"
+                value="{{ ms_variant.id }}"
+              >
+            {% else %}
+
+              <div class="ms-pdp__variant-field">
+                <label
+                  class="ms-pdp__variant-label"
+                  for="ms-variant-{{ section.id }}"
+                >
+                  Select variant
+                </label>
+
+                <select
+                  class="ms-pdp__variant-select"
+                  id="ms-variant-{{ section.id }}"
+                  name="id"
+                  data-ms-variant-select
+                >
+                  {% for variant in ms_product.variants %}
+                    <option
+                      value="{{ variant.id }}"
+                      data-ms-price="{{ variant.price | money | escape }}"
+                      data-ms-compare-price="{{ variant.compare_at_price | money | escape }}"
+                      data-ms-show-compare="{% if variant.compare_at_price > variant.price %}true{% else %}false{% endif %}"
+                      data-ms-available="{{ variant.available }}"
+                      {% if variant.id == ms_variant.id %}
+                        selected
+                      {% endif %}
+                      {% unless variant.available %}
+                        disabled
+                      {% endunless %}
+                    >
+                      {{ variant.title | escape }}
+                      {% unless variant.available %}
+                        - Sold out
+                      {% endunless %}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+
+            {% endif %}
+
+            <input type="hidden" name="quantity" value="1">
+
+            <div class="ms-pdp__actions">
+
+              <button
+                type="submit"
+                name="add"
+                class="ms-pdp__add-button"
+                data-ms-add-button
+                {% unless ms_variant.available %}
+                  disabled
+                {% endunless %}
+              >
+                <svg
+                  class="ms-pdp__cart-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="9" cy="21" r="1"></circle>
+                  <circle cx="20" cy="21" r="1"></circle>
+                  <path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"></path>
+                </svg>
+
+                <span data-ms-add-label>
+                  {% if ms_variant.available %}
+                    {{ section.settings.cart_label | escape }}
+                  {% else %}
+                    Sold out
+                  {% endif %}
+                </span>
+              </button>
+
+              <button
+                type="button"
+                class="ms-pdp__wishlist"
+                aria-label="Add to favorites"
+                aria-pressed="false"
+                data-ms-wishlist
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"></path>
+                </svg>
+              </button>
+
+              {% if section.settings.sample_url != blank %}
+                <a
+                  class="ms-pdp__sample"
+                  href="{{ section.settings.sample_url }}"
+                >
+                  {{ section.settings.sample_label | escape }}
+                </a>
+              {% endif %}
+
+            </div>
+
+          {% endform %}
+
+        </div>
+
+      </div>
+
+    {% else %}
+
+      <div class="ms-pdp__placeholder">
+        {{ 'product-1' | placeholder_svg_tag }}
+      </div>
+
+      <p style="text-align: center;">
+        Select a product in the Theme Editor or view this section on a product page.
+      </p>
+
+    {% endif %}
+
+  </div>
+</section>
+
+{% comment %}
+  ================================
+  13. JAVASCRIPT
+  ================================
+{% endcomment %}
+
+<script>
+  (function () {
+    'use strict';
+
+    const sectionId = {{ section.id | json }};
+    const sectionSelector =
+      '[data-ms-section-id="' + sectionId + '"]';
+
+    function initPdp() {
+      const root = document.querySelector(sectionSelector);
+
+      if (!root || root.dataset.msInitialized === 'true') {
+        return;
+      }
+
+      root.dataset.msInitialized = 'true';
+
+      /* ================================
+         SWIPER GALLERY
+      ================================= */
+
+      if (typeof Swiper !== 'undefined') {
+        const mainElement =
+          root.querySelector('.ms-pdp__main-swiper');
+
+        const thumbElement =
+          root.querySelector('.ms-pdp__thumb-swiper');
+
+        if (mainElement && thumbElement) {
+
+          const thumbnails = new Swiper(thumbElement, {
+            slidesPerView: 4,
+            spaceBetween: 8,
+            watchSlidesProgress: true,
+            slideToClickedSlide: true,
+            freeMode: false,
+            breakpoints: {
+              601: {
+                slidesPerView: 4,
+                spaceBetween: 10
+              }
+            }
+          });
+
+          const mainGallery = new Swiper(mainElement, {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            speed: 450,
+            loop: false,
+            autoHeight: false,
+            thumbs: {
+              swiper: thumbnails
+            }
+          });
+
+          root.msMainGallery = mainGallery;
+          root.msThumbGallery = thumbnails;
+
+          thumbElement
+            .querySelectorAll('.ms-pdp__thumb-slide')
+            .forEach(function (slide, index) {
+
+              slide.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  mainGallery.slideTo(index);
+                }
+              });
+
+            });
+        }
+      }
+
+      /* ================================
+         VARIANT CHANGES
+      ================================= */
+
+      const variantSelect =
+        root.querySelector('[data-ms-variant-select]');
+
+      const priceElement =
+        root.querySelector('[data-ms-price]');
+
+      const compareElement =
+        root.querySelector('[data-ms-compare-price]');
+
+      const addButton =
+        root.querySelector('[data-ms-add-button]');
+
+      const addLabel =
+        root.querySelector('[data-ms-add-label]');
+
+      const cartText = {{ section.settings.cart_label | json }};
+
+      if (variantSelect) {
+        variantSelect.addEventListener('change', function () {
+          const selected =
+            variantSelect.options[variantSelect.selectedIndex];
+
+          if (!selected) return;
+
+          const available =
+            selected.dataset.msAvailable === 'true';
+
+          if (priceElement) {
+            priceElement.textContent = selected.dataset.msPrice;
+          }
+
+          if (compareElement) {
+            const hasCompare =
+              selected.dataset.msShowCompare === 'true';
+
+            compareElement.hidden = !hasCompare;
+            compareElement.textContent = hasCompare
+              ? selected.dataset.msComparePrice
+              : '';
+          }
+
+          if (addButton) {
+            addButton.disabled = !available;
+          }
+
+          if (addLabel) {
+            addLabel.textContent = available
+              ? cartText
+              : 'Sold out';
+          }
+        });
+      }
+
+      /* ================================
+         LOCAL FAVORITES TOGGLE
+      ================================= */
+
+      const wishlist =
+        root.querySelector('[data-ms-wishlist]');
+
+      const productId = root.dataset.msProductId;
+
+      if (wishlist && productId) {
+        const storageKey = 'ms-favorite-' + productId;
+
+        try {
+          const isSaved =
+            window.localStorage.getItem(storageKey) === 'true';
+
+          wishlist.setAttribute(
+            'aria-pressed',
+            String(isSaved)
+          );
+
+          wishlist.setAttribute(
+            'aria-label',
+            isSaved ? 'Remove from favorites' : 'Add to favorites'
+          );
+        } catch (error) {
+          // Storage may be unavailable.
+        }
+
+        wishlist.addEventListener('click', function () {
+          const isActive =
+            wishlist.getAttribute('aria-pressed') === 'true';
+
+          const newState = !isActive;
+
+          wishlist.setAttribute(
+            'aria-pressed',
+            String(newState)
+          );
+
+          wishlist.setAttribute(
+            'aria-label',
+            newState ? 'Remove from favorites' : 'Add to favorites'
+          );
+
+          try {
+            window.localStorage.setItem(
+              storageKey,
+              String(newState)
+            );
+          } catch (error) {
+            // Visual toggle works without storage.
+          }
+        });
+      }
+    }
+
+    function destroyPdp() {
+      const root = document.querySelector(sectionSelector);
+
+      if (!root) return;
+
+      if (root.msMainGallery) {
+        root.msMainGallery.destroy(true, true);
+      }
+
+      if (root.msThumbGallery) {
+        root.msThumbGallery.destroy(true, true);
+      }
+
+      delete root.msMainGallery;
+      delete root.msThumbGallery;
+
+      root.removeAttribute('data-ms-initialized');
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPdp);
+    } else {
+      initPdp();
+    }
+
+    if (!window.msPdpEditorEventsBound) {
+      window.msPdpEditorEventsBound = true;
+
+      document.addEventListener('shopify:section:load', function (event) {
+        const section = event.target;
+
+        if (section && section.querySelector('[data-ms-pdp]')) {
+          const scriptRoot = section.querySelector('[data-ms-pdp]');
+
+          if (scriptRoot && scriptRoot.dataset.msInitialized !== 'true') {
+            // Each rendered section normally runs its own initializer.
+            document.dispatchEvent(
+              new CustomEvent('ms:pdp:section-loaded', {
+                detail: { sectionId: scriptRoot.dataset.msSectionId }
+              })
+            );
+          }
+        }
+      });
+    }
+
+    document.addEventListener('ms:pdp:section-loaded', function (event) {
+      if (event.detail.sectionId === sectionId) {
+        initPdp();
+      }
+    });
+
+    document.addEventListener('shopify:section:unload', function (event) {
+      if (
+        event.target &&
+        event.target.contains(document.querySelector(sectionSelector))
+      ) {
+        destroyPdp();
+      }
+    });
+
+  })();
+</script>
+
+{% comment %}
+  ================================
+  14. SHOPIFY SECTION SCHEMA
+  ================================
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "MS Perfume PDP",
+  "tag": "section",
+  "class": "ms-pdp-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product"
+    },
+    {
+      "type": "product",
+      "id": "featured_product",
+      "label": "Fallback product",
+      "info": "Used when the section is not on a product page."
+    },
+    {
+      "type": "header",
+      "content": "Desktop introduction"
+    },
+    {
+      "type": "text",
+      "id": "desktop_heading",
+      "label": "Desktop heading",
+      "default": "Special Edition"
+    },
+    {
+      "type": "richtext",
+      "id": "desktop_subheading",
+      "label": "Desktop description",
+      "default": "<p>A limited release crafted to elevate your experience to new heights. Indulge in unparalleled quality, exquisite design, and extraordinary features that set it apart from the rest.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Mobile introduction"
+    },
+    {
+      "type": "text",
+      "id": "mobile_heading",
+      "label": "Mobile heading",
+      "default": "New Designs"
+    },
+    {
+      "type": "richtext",
+      "id": "mobile_subheading",
+      "label": "Mobile description",
+      "default": "<p>A new addition to the collection, ready for sample orders and custom decoration.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Product information"
+    },
+    {
+      "type": "richtext",
+      "id": "custom_description",
+      "label": "Description override",
+      "info": "Leave empty to use the product description."
+    },
+    {
+      "type": "text",
+      "id": "cart_label",
+      "label": "Add to cart label",
+      "default": "Add to Cart"
+    },
+    {
+      "type": "text",
+      "id": "sample_label",
+      "label": "Sample button label",
+      "default": "Order a Sample"
+    },
+    {
+      "type": "url",
+      "id": "sample_url",
+      "label": "Sample button link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#C4A075"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "specification",
+      "name": "Product specification",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Specification label",
+          "default": "Material"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Specification value",
+          "default": "White opal glass"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "MS Perfume PDP",
+      "blocks": [
+        {
+          "type": "specification",
+          "settings": {
+            "label": "Volume",
+            "value": "110ml"
+          }
+        },
+        {
+          "type": "specification",
+          "settings": {
+            "label": "Weight",
+            "value": "Appr. 200g"
+          }
+        },
+        {
+          "type": "specification",
+          "settings": {
+            "label": "Material",
+            "value": "White opal glass"
+          }
+        },
+        {
+          "type": "specification",
+          "settings": {
+            "label": "Dimensions",
+            "value": "38mm(L)*38mm(W)*143mm(H)"
+          }
+        },
+        {
+          "type": "specification",
+          "settings": {
+            "label": "Sealing type",
+            "value": "FEA 15 Sprayer"
+          }
+        },
+        {
+          "type": "specification",
+          "settings": {
+            "label": "MOQ",
+            "value": "30000pcs"
+          }
+        },
+        {
+          "type": "specification",
+          "settings": {
+            "label": "Customized Decoration",
+            "value": "Hand polishing / Color coating / Frosting"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
