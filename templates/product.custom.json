@@ -11,10 +11,84 @@
   "sections": {
     "main": {
       "type": "ms-pdp-section",
-      "settings": {}
+      "settings": {
+        "featured_product": "",
+        "desktop_heading": "Special Edition",
+        "desktop_subheading": "<p>A limited release crafted to elevate your experience to new heights. Indulge in unparalleled quality, exquisite design, and extraordinary features that set it apart from the rest.</p>",
+        "mobile_heading": "New Designs",
+        "mobile_subheading": "<p>A new addition to the collection, ready for sample orders and custom decoration.</p>",
+        "custom_description": "",
+        "cart_label": "Add to Cart",
+        "sample_label": "Order a Sample",
+        "sample_url": "",
+        "accent_color": "#c4a075",
+        "background_color": "#ffffff"
+      }
+    },
+    "ms_limited_offer_tqA4wd": {
+      "type": "ms-limited-offer",
+      "name": "MS Limited Time Offer",
+      "settings": {
+        "heading": "Limited Time Offer",
+        "description": "Discover our exclusive perfume boxes collection - Order Now!",
+        "image": "shopify://shop_images/Frame_1000003316.png",
+        "button_label": "SHOP NOW",
+        "button_link": "",
+        "show_timer": true,
+        "end_date": "2026-11-30T23:59:00+08:00",
+        "expired_behavior": "message",
+        "expired_text": "This offer has ended.",
+        "background_color": "#171717",
+        "text_color": "#FFFFFF",
+        "accent_color": "#B79B76",
+        "max_width": 1200
+      }
+    },
+    "ms_featured_blogs_gQMwe4": {
+      "type": "ms-featured-blogs",
+      "blocks": {
+        "blog_article_xLGHdM": {
+          "type": "blog_article",
+          "settings": {
+            "article": "the-art-of-perfume-bottles-a-dive-into-elegance/the-art-of-perfume-bottles-a-dive-into-elegance"
+          }
+        },
+        "blog_article_HLmXfB": {
+          "type": "blog_article",
+          "settings": {
+            "article": "news/the-psychology-behind-perfume-bottle-designs"
+          }
+        },
+        "blog_article_gR9TEz": {
+          "type": "blog_article",
+          "settings": {
+            "article": "the-art-of-perfume-bottles-a-dive-into-elegance/the-art-of-perfume-bottles-a-dive-into-elegance"
+          }
+        }
+      },
+      "block_order": [
+        "blog_article_xLGHdM",
+        "blog_article_HLmXfB",
+        "blog_article_gR9TEz"
+      ],
+      "name": "MS Featured Blogs",
+      "settings": {
+        "heading": "Our Blogs",
+        "description": "Explore our collection of informative and engaging blog posts covering a range of topics.",
+        "read_more_text": "READ MORE",
+        "show_date": true,
+        "show_author": true,
+        "show_excerpt": true,
+        "excerpt_length": 130,
+        "background_color": "#FFFFFF",
+        "text_color": "#111111",
+        "accent_color": "#C39B71"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "ms_limited_offer_tqA4wd",
+    "ms_featured_blogs_gQMwe4"
   ]
 }
