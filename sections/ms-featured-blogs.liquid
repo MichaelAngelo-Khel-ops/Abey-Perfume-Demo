@@ -1,0 +1,568 @@
+
+{% style %}
+  /* ========================================
+     MS FEATURED BLOGS - SECTION STYLES
+     ======================================== */
+
+  #shopify-section-{{ section.id }} {
+    --ms-blog-text: {{ section.settings.text_color }};
+    --ms-blog-accent: {{ section.settings.accent_color }};
+    --ms-blog-bg: {{ section.settings.background_color }};
+    --ms-blog-gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-blogs {
+    background-color: var(--ms-blog-bg);
+    color: var(--ms-blog-text);
+    padding: 58px 20px 54px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-blogs__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+
+  #shopify-section-{{ section.id }} .ms-blogs__header {
+    text-align: center;
+    margin-bottom: 34px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-blogs__heading {
+    margin: 0 0 10px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(30px, 3vw, 38px);
+    line-height: 1.2;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  #shopify-section-{{ section.id }} .ms-blogs__description {
+    max-width: 680px;
+    margin: 0 auto;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  /* Grid */
+
+  #shopify-section-{{ section.id }} .ms-blogs__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--ms-blog-gap);
+    align-items: start;
+  }
+
+  /* Article Card */
+
+  #shopify-section-{{ section.id }} .ms-blog-card {
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ms-blog-card__image-link {
+    display: block;
+    overflow: hidden;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .ms-blog-card__image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1.54 / 1;
+    overflow: hidden;
+    background-color: #f0f0f0;
+  }
+
+  #shopify-section-{{ section.id }} .ms-blog-card__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  #shopify-section-{{ section.id }} .ms-blog-card__image-link:hover .ms-blog-card__image {
+    transform: scale(1.045);
+  }
+
+  #shopify-section-{{ section.id }} .ms-blog-card__placeholder {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Content */
+
+  #shopify-section-{{ section.id }} .ms-blog-card__content {
+    padding-top: 17px;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 0 1fr 1fr;
+  }
+
+  #shopify-section-{{ section.id }} .ms-blog-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--ms-blog-accent);
+    line-height: 1.4;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .ms-blog-card__title {
+    margin-bottom: 20px;
+    font-family: inherit;
+    font-size: clamp(18px, 1.7vw, 21px);
+    line-height: 1.12;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+
+  #shopify-section-{{ section.id }} .ms-blog-card__title-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .ms-blog-card__title-link:hover {
+    color: var(--ms-blog-accent);
+  }
+
+  #shopify-section-{{ section.id }} .ms-blog-card__divider {
+    height: 1px;
+    width: 100%;
+    background-color: #dedede;
+  }
+
+  #shopify-section-{{ section.id }} .ms-blog-card__excerpt {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--ms-blog-text);
+    opacity: 0.8;
+    margin-top: 10px;
+  }
+
+  /* Read More */
+
+  #shopify-section-{{ section.id }} .ms-blog-card__read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ms-blog-text);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .ms-blog-card__read-more:hover {
+    color: var(--ms-blog-accent);
+  }
+
+  #shopify-section-{{ section.id }} .ms-blog-card__arrow {
+    display: inline-block;
+    font-size: 25px;
+    font-weight: 300;
+    line-height: 0.6;
+    transition: transform 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .ms-blog-card__read-more:hover .ms-blog-card__arrow {
+    transform: translateX(5px);
+  }
+
+  #shopify-section-{{ section.id }} .ms-blog-card__title-link:focus-visible,
+  #shopify-section-{{ section.id }} .ms-blog-card__image-link:focus-visible,
+  #shopify-section-{{ section.id }} .ms-blog-card__read-more:focus-visible {
+    outline: 2px solid var(--ms-blog-accent);
+    outline-offset: 4px;
+  }
+
+  /* Tablet */
+
+  @media screen and (max-width: 989px) {
+    #shopify-section-{{ section.id }} .ms-blogs {
+      padding: 48px 24px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-blogs__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px 16px;
+    }
+  }
+
+  /* Mobile */
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .ms-blogs {
+      padding: 42px 18px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-blogs__header {
+      margin-bottom: 27px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-blogs__heading {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-blogs__description {
+      font-size: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-blogs__grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 35px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-blog-card__image-wrapper {
+      aspect-ratio: 1.54 / 1;
+    }
+
+    #shopify-section-{{ section.id }} .ms-blog-card__content {
+      padding-top: 15px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-blog-card__title {
+      font-size: 21px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .ms-blog-card__image,
+    #shopify-section-{{ section.id }} .ms-blog-card__arrow {
+      transition: none;
+    }
+  }
+{% endstyle %}
+
+{% comment %}
+  ========================================
+  MS FEATURED BLOGS - LIQUID CONTENT
+  ========================================
+{% endcomment %}
+
+<section
+  id="ms-blogs-{{ section.id }}"
+  class="ms-blogs"
+>
+  <div class="ms-blogs__container">
+
+    <!-- Section Header -->
+    <div class="ms-blogs__header">
+
+      {% if section.settings.heading != blank %}
+        <h2 class="ms-blogs__heading">
+          {{ section.settings.heading | escape }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <p class="ms-blogs__description">
+          {{ section.settings.description | escape }}
+        </p>
+      {% endif %}
+
+    </div>
+
+    <!-- Blog Grid -->
+    <div class="ms-blogs__grid">
+
+      {% for block in section.blocks %}
+        {% liquid
+          assign ms_article = block.settings.article
+          assign ms_has_article = false
+
+          if ms_article != blank
+            assign ms_has_article = true
+          endif
+        %}
+
+        <article
+          class="ms-blog-card"
+          {{ block.shopify_attributes }}
+        >
+
+          <!-- Article Image -->
+          {% if ms_has_article %}
+            <a
+              class="ms-blog-card__image-link"
+              href="{{ ms_article.url }}"
+              aria-label="{{ ms_article.title | escape }}"
+            >
+          {% endif %}
+
+          <div class="ms-blog-card__image-wrapper">
+
+            {% if ms_has_article and ms_article.image != blank %}
+
+              {{
+                ms_article.image
+                | image_url: width: 900
+                | image_tag:
+                  class: 'ms-blog-card__image',
+                  loading: 'lazy',
+                  widths: '320, 480, 640, 900',
+                  sizes: '(max-width: 749px) 100vw, (max-width: 989px) 50vw, 33vw'
+              }}
+
+            {% else %}
+
+              {{
+                'image'
+                | placeholder_svg_tag: 'ms-blog-card__placeholder'
+              }}
+
+            {% endif %}
+
+          </div>
+
+          {% if ms_has_article %}
+            </a>
+          {% endif %}
+
+          <!-- Card Content -->
+          <div class="ms-blog-card__content">
+
+            {% if ms_has_article %}
+
+              <!-- Published Date / Author -->
+              <div class="ms-blog-card__meta">
+
+                {% if section.settings.show_date %}
+                  <time
+                    datetime="{{ ms_article.published_at | date: '%Y-%m-%d' }}"
+                  >
+                    {{ ms_article.published_at | date: '%d %B %Y' }}
+                  </time>
+                {% endif %}
+
+                {% if section.settings.show_author and ms_article.author != blank %}
+
+                  {% if section.settings.show_date %}
+                    <span aria-hidden="true">/</span>
+                  {% endif %}
+
+                  <span>
+                    {{ ms_article.author | escape }}
+                  </span>
+
+                {% endif %}
+
+              </div>
+
+              <!-- Article Title -->
+              <h3 class="ms-blog-card__title">
+                <a
+                  class="ms-blog-card__title-link"
+                  href="{{ ms_article.url }}"
+                >
+                  {{ ms_article.title | escape }}
+                </a>
+              </h3>
+
+              <div class="ms-blog-card__divider"></div>
+
+              <!-- Article Excerpt -->
+              {% if section.settings.show_excerpt %}
+                {% liquid
+                  assign ms_excerpt = ms_article.excerpt
+
+                  if ms_excerpt == blank
+                    assign ms_excerpt = ms_article.content
+                  endif
+                %}
+
+                <p class="ms-blog-card__excerpt">
+                  {{
+                    ms_excerpt
+                    | strip_html
+                    | strip
+                    | truncate: section.settings.excerpt_length
+                  }}
+                </p>
+              {% endif %}
+
+              <!-- Read More -->
+              <a
+                class="ms-blog-card__read-more"
+                href="{{ ms_article.url }}"
+              >
+                {{ section.settings.read_more_text | escape }}
+                <span
+                  class="ms-blog-card__arrow"
+                  aria-hidden="true"
+                >
+                  &rarr;
+                </span>
+              </a>
+
+            {% else %}
+
+              <!-- Empty Article Placeholder -->
+              <div class="ms-blog-card__meta">
+                SELECT AN ARTICLE
+              </div>
+
+              <h3 class="ms-blog-card__title">
+                Your blog post title
+              </h3>
+
+              <div class="ms-blog-card__divider"></div>
+
+              <p class="ms-blog-card__excerpt">
+                Choose an article in the Shopify theme editor to display its image, title, date, author, and excerpt.
+              </p>
+
+              <span class="ms-blog-card__read-more">
+                {{ section.settings.read_more_text | escape }}
+                <span
+                  class="ms-blog-card__arrow"
+                  aria-hidden="true"
+                >
+                  &rarr;
+                </span>
+              </span>
+
+            {% endif %}
+
+          </div>
+
+        </article>
+
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "MS Featured Blogs",
+  "tag": "section",
+  "class": "ms-featured-blogs-section",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section heading",
+      "default": "Our Blogs"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Section description",
+      "default": "Explore our collection of informative and engaging blog posts covering a range of topics."
+    },
+    {
+      "type": "text",
+      "id": "read_more_text",
+      "label": "Read more label",
+      "default": "READ MORE"
+    },
+    {
+      "type": "header",
+      "content": "Article information"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show publication date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show article author",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "label": "Show article excerpt",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "excerpt_length",
+      "label": "Excerpt length",
+      "min": 50,
+      "max": 250,
+      "step": 10,
+      "default": 130
+    },
+    {
+      "type": "header",
+      "content": "Section colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Date and author color",
+      "default": "#C39B71"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "blog_article",
+      "name": "Blog Article",
+      "settings": [
+        {
+          "type": "article",
+          "id": "article",
+          "label": "Select blog article",
+          "info": "Choose an article from your Shopify blogs."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "MS Featured Blogs",
+      "blocks": [
+        {
+          "type": "blog_article"
+        },
+        {
+          "type": "blog_article"
+        },
+        {
+          "type": "blog_article"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
