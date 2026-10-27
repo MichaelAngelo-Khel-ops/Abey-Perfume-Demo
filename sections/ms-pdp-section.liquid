@@ -220,6 +220,8 @@
     font-size: 12px;
     line-height: 1.85;
     color: #555;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--ms-accent);
   }
 
   #shopify-section-{{ section.id }} .ms-pdp__description p {
@@ -488,6 +490,11 @@
       line-height: 1.75;
     }
 
+    #shopify-section-{{ section.id }} .ms-pdp__additional-info-item {
+      font-family: var(--font-body--family);
+      font-size: 12px;
+    }
+
     #shopify-section-{{ section.id }} .ms-pdp__specs {
       padding-top: 16px;
       margin-bottom: 22px;
@@ -706,6 +713,55 @@
               {{ ms_product.description }}
             {% endif %}
           </div>
+        
+          <div class="ms-pdp__additional-info">
+            <ul>
+                {% if ms_product.metafields.custom.volume != blank %}
+                    <li>
+                      <span class="ms-pdp__additional-info-item">
+                        <b>Volume:</b> {{ ms_product.metafields.custom.volume }}
+                      </span>
+                    </li>
+                {% endif %}
+                {% if ms_product.selected_or_first_available_variant.weight != blank %}
+                    <li>
+                      <span class="ms-pdp__additional-info-item">
+                        <b>Weight:</b> {{ ms_product.selected_or_first_available_variant.weight | weight_with_unit  }}
+                      </span>
+                    </li>
+                {% endif %}
+                {% if ms_product.metafields.custom.material != blank %}
+                    <li>
+                      <span class="ms-pdp__additional-info-item">
+                        <b>Material:</b> {{ ms_product.metafields.custom.material }}
+                      </span>
+                    </li>
+                {% endif %}
+                {% if ms_product.metafields.custom.dimensions != blank %}
+                    <li>
+                      <span class="ms-pdp__additional-info-item">
+                        <b>Dimensions:</b> {{ ms_product.metafields.custom.dimensions }}
+                      </span>
+                    </li>
+                {% endif %}
+                {% if ms_product.metafields.custom.sealing_type != blank %}
+                    <li>
+                      <span class="ms-pdp__additional-info-item">
+                        <b>Sealing Type:</b> {{ ms_product.metafields.custom.sealing_type}}
+                      </span>
+                    </li>
+                {% endif %}
+                {% if ms_product.metafields.custom.customized_decoration != blank %}
+                    <li>
+                      <span class="ms-pdp__additional-info-item">
+                        <b>Customized Decoration:</b>{{ ms_product.metafields.custom.customized_decoration }}
+                      </span>
+                    </li>
+                {% endif %}
+            </ul>
+          </div>
+
+          
 
           {% comment %}
             Reorderable specifications
