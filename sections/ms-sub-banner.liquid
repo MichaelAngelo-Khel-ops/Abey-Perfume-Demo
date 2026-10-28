@@ -51,7 +51,7 @@
     position: relative;
     z-index: 1;
     width: 100%;
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 48px 24px;
   }
@@ -70,10 +70,14 @@
   }
 
   .ms-hero__text {
-    margin: 0 0 24px;
     font-size: 0.8125rem;
     line-height: 1.6;
     color: var(--ms-hero-text);
+    font-weight: 200;
+  }
+
+  .ms-hero__text-content {
+    margin: 0 0 24px;
   }
 
   .ms-hero__text p {
@@ -87,8 +91,8 @@
     padding: 10px 20px;
     border: 1px solid var(--ms-hero-text);
     color: var(--ms-hero-text);
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 200;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     text-decoration: none;
@@ -129,11 +133,11 @@
     }
 
     .ms-hero__content {
-      max-width: 520px;
+      max-width: 450px;
     }
 
     .ms-hero__heading {
-      font-size: 2.5rem;
+      font-size: 2.7rem;
     }
 
     .ms-hero__text {
@@ -180,9 +184,15 @@
         <h2 class="ms-hero__heading">{{ section.settings.heading }}</h2>
       {% endif %}
 
-      {% if section.settings.text != blank %}
-        <div class="ms-hero__text">{{ section.settings.text }}</div>
-      {% endif %}
+      <div class="ms-hero__text-content">
+        {% if section.settings.text != blank %}
+          <div class="ms-hero__text">{{ section.settings.text }}</div>
+        {% endif %}
+        {% if section.settings.text_2 != blank %}
+          <div class="ms-hero__text">{{ section.settings.text_2 }}</div>
+        {% endif %}
+      </div>
+
 
       {% if section.settings.button_label != blank %}
         <a href="{{ section.settings.button_link | default: '#' }}" class="ms-hero__button">
@@ -257,6 +267,12 @@
     {
       "type": "richtext",
       "id": "text",
+      "label": "Text",
+      "default": "<p>Elevate Your Brand, Seal the Scent, and Shine with Style! Exclusive Offer Inside – Craft Your Signature Look Today!</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "text_2",
       "label": "Text",
       "default": "<p>Elevate Your Brand, Seal the Scent, and Shine with Style! Exclusive Offer Inside – Craft Your Signature Look Today!</p>"
     },
