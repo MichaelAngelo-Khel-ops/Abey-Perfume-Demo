@@ -39,8 +39,8 @@
         "expired_behavior": "message",
         "expired_text": "This offer has ended.",
         "background_color": "#171717",
-        "text_color": "#FFFFFF",
-        "accent_color": "#B79B76",
+        "text_color": "#ffffff",
+        "accent_color": "#b79b76",
         "max_width": 1200
       }
     },
@@ -80,15 +80,73 @@
         "show_author": true,
         "show_excerpt": true,
         "excerpt_length": 130,
-        "background_color": "#FFFFFF",
+        "background_color": "#ffffff",
         "text_color": "#111111",
-        "accent_color": "#C39B71"
+        "accent_color": "#c39b71"
+      }
+    },
+    "ms_testimonials_BXkcik": {
+      "type": "ms-testimonials",
+      "blocks": {
+        "testimonial_gfwLP8": {
+          "type": "testimonial",
+          "settings": {
+            "review_text": "As a professional, I understand the importance of making a good impression, and Abely's fragrances help me do just that.",
+            "rating": 5,
+            "customer_image": "shopify://shop_images/Ellipse_2.png",
+            "customer_name": "Sophia Rodriguez"
+          }
+        },
+        "testimonial_HPXGa9": {
+          "type": "testimonial",
+          "settings": {
+            "review_text": "I've been a loyal customer of Abely Perfume for years now, and I can't imagine using anything else.",
+            "rating": 5,
+            "customer_image": "shopify://shop_images/Ellipse_2_1.png",
+            "customer_name": "David Smith"
+          }
+        },
+        "testimonial_Cad4rL": {
+          "type": "testimonial",
+          "settings": {
+            "review_text": "Abely Perfume is magical. Not only do their fragrances smell incredible, but the attention to detail in their packaging is also exquisite.",
+            "rating": 5,
+            "customer_image": "shopify://shop_images/Ellipse_2_2.png",
+            "customer_name": "Emily Chen"
+          }
+        },
+        "testimonial_fy6NFn": {
+          "type": "testimonial",
+          "settings": {
+            "review_text": "Beautifully designed fragrances that feel luxurious and elegant. A fantastic experience from start to finish.",
+            "rating": 5,
+            "customer_image": "shopify://shop_images/Ellipse_2_1.png",
+            "customer_name": "Alex Morgan"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_gfwLP8",
+        "testimonial_HPXGa9",
+        "testimonial_Cad4rL",
+        "testimonial_fy6NFn"
+      ],
+      "name": "MS Testimonials",
+      "settings": {
+        "heading": "What They Say About Us",
+        "description": "Unveiling the Silent Narratives: Decoding the Messages Hidden in Perfume Bottle Designs",
+        "background_image": "shopify://shop_images/Rectangle_4515.png",
+        "overlay_opacity": 70,
+        "card_background": "#171717",
+        "text_color": "#FFFFFF",
+        "accent_color": "#C5A374"
       }
     }
   },
   "order": [
     "main",
     "ms_limited_offer_tqA4wd",
-    "ms_featured_blogs_gQMwe4"
+    "ms_featured_blogs_gQMwe4",
+    "ms_testimonials_BXkcik"
   ]
 }
