@@ -38,9 +38,11 @@
         "slide_fg4m9y": {
           "type": "slide",
           "settings": {
+            "bg_image": "shopify://shop_images/Rectangle_4660.png",
             "bg_color": "#0a0a0a",
             "overlay_color": "#000000",
             "overlay_opacity": 30,
+            "product_image": "shopify://shop_images/Group_1000002842.png",
             "image_position": "right",
             "image_width": 45,
             "eyebrow": "Perfume packaging perfected",
