@@ -1,0 +1,681 @@
+
+{% style %}
+  /* ==========================================
+     MS TESTIMONIALS - SECTION STYLES
+     ========================================== */
+
+  #shopify-section-{{ section.id }} {
+    --ms-testimonial-bg: {{ section.settings.card_background }};
+    --ms-testimonial-text: {{ section.settings.text_color }};
+    --ms-testimonial-gold: {{ section.settings.accent_color }};
+    --ms-testimonial-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+  }
+
+  #shopify-section-{{ section.id }} .ms-testimonials {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 450px;
+    padding: 56px 20px 50px;
+    background: #171514;
+    color: var(--ms-testimonial-text);
+  }
+
+  /* Background */
+
+  #shopify-section-{{ section.id }} .ms-testimonials__background {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background-color: #1b1714;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  #shopify-section-{{ section.id }} .ms-testimonials__background::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, var(--ms-testimonial-overlay));
+  }
+
+  #shopify-section-{{ section.id }} .ms-testimonials__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Section heading */
+
+  #shopify-section-{{ section.id }} .ms-testimonials__header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-testimonials__heading {
+    margin: 0 0 9px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: clamp(27px, 3vw, 34px);
+    line-height: 1.2;
+    letter-spacing: -.02em;
+    color: inherit;
+  }
+
+  #shopify-section-{{ section.id }} .ms-testimonials__description {
+    max-width: 680px;
+    margin: 0 auto;
+    color: inherit;
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.6;
+    opacity: .85;
+  }
+
+  /* Swiper */
+
+  #shopify-section-{{ section.id }} .ms-testimonials__slider {
+    width: 100%;
+    max-width: 756px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .ms-testimonials__wrapper {
+    display: flex;
+    align-items: stretch;
+  }
+
+  #shopify-section-{{ section.id }} .ms-testimonials__slide {
+    flex-shrink: 0;
+    height: auto;
+    box-sizing: border-box;
+  }
+
+  /* Testimonial card */
+
+  #shopify-section-{{ section.id }} .ms-testimonial-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 216px;
+    height: 100%;
+    padding: 25px 18px 23px;
+    background: var(--ms-testimonial-bg);
+    box-shadow: 0 4px 20px rgba(255,255,255,.07);
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .ms-testimonial-card__review {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+    min-height: 49px;
+    margin: 0 0 12px;
+    font-size: 10px;
+    line-height: 1.65;
+    font-weight: 400;
+    color: inherit;
+  }
+
+  /* Star rating */
+
+  #shopify-section-{{ section.id }} .ms-testimonial-card__stars {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    margin-bottom: 13px;
+    color: var(--ms-testimonial-gold);
+  }
+
+  #shopify-section-{{ section.id }} .ms-testimonial-card__star {
+    width: 12px;
+    height: 12px;
+    display: block;
+    fill: currentColor;
+  }
+
+  #shopify-section-{{ section.id }} .ms-testimonial-card__star--empty {
+    fill: transparent;
+    stroke: currentColor;
+    stroke-width: 1.5;
+  }
+
+  /* Customer image */
+
+  #shopify-section-{{ section.id }} .ms-testimonial-card__avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    border-radius: 50%;
+    background: #48423b;
+  }
+
+  #shopify-section-{{ section.id }} .ms-testimonial-card__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .ms-testimonial-card__initials {
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  /* Name */
+
+  #shopify-section-{{ section.id }} .ms-testimonial-card__name {
+    margin: auto 0 0;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.35;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    color: inherit;
+  }
+
+  /* Pagination */
+
+  #shopify-section-{{ section.id }} .ms-testimonials__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 20px;
+    margin-top: 23px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-testimonials__bullet {
+    display: block;
+    flex: 0 0 19px;
+    width: 19px;
+    height: 3px;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: rgba(255,255,255,.35);
+    cursor: pointer;
+    transition: background .25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .ms-testimonials__bullet--active {
+    background: var(--ms-testimonial-gold);
+  }
+
+  #shopify-section-{{ section.id }} .ms-testimonials__bullet:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 4px;
+  }
+
+  /* Tablet */
+
+  @media screen and (max-width: 989px) and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .ms-testimonials__slider {
+      max-width: 510px;
+    }
+  }
+
+  /* Mobile layout */
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .ms-testimonials {
+      min-height: 440px;
+      padding: 26px 14px 43px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-testimonials__background {
+      background-position: center center;
+    }
+
+    #shopify-section-{{ section.id }} .ms-testimonials__header {
+      margin-bottom: 31px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-testimonials__heading {
+      max-width: 260px;
+      margin: 0 auto 10px;
+      font-size: 27px;
+      line-height: 1.06;
+    }
+
+    #shopify-section-{{ section.id }} .ms-testimonials__description {
+      max-width: 285px;
+      font-size: 11px;
+      line-height: 1.55;
+    }
+
+    #shopify-section-{{ section.id }} .ms-testimonials__slider {
+      max-width: 340px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-testimonial-card {
+      min-height: 208px;
+      padding: 26px 22px 23px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-testimonial-card__review {
+      min-height: 49px;
+      margin-bottom: 10px;
+      font-size: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-testimonial-card__stars {
+      margin-bottom: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-testimonial-card__avatar {
+      width: 44px;
+      height: 44px;
+      margin-bottom: 15px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-testimonial-card__name {
+      font-size: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-testimonials__pagination {
+      margin-top: 22px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .ms-testimonials__bullet {
+      transition: none;
+    }
+  }
+{% endstyle %}
+
+{% comment %}
+  ==========================================
+  MS TESTIMONIALS - SECTION CONTENT
+  ==========================================
+{% endcomment %}
+
+<section
+  id="ms-testimonials-{{ section.id }}"
+  class="ms-testimonials"
+>
+  <!-- Background image -->
+  <div
+    class="ms-testimonials__background"
+    {% if section.settings.background_image != blank %}
+      style="background-image: url('{{ section.settings.background_image | image_url: width: 2000 }}');"
+    {% endif %}
+    aria-hidden="true"
+  ></div>
+
+  <div class="ms-testimonials__container">
+
+    <!-- Header -->
+    <div class="ms-testimonials__header">
+
+      {% if section.settings.heading != blank %}
+        <h2 class="ms-testimonials__heading">
+          {{ section.settings.heading | escape }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <p class="ms-testimonials__description">
+          {{ section.settings.description | escape }}
+        </p>
+      {% endif %}
+
+    </div>
+
+    <!-- Testimonial Carousel -->
+    {% if section.blocks.size > 0 %}
+      <div
+        class="ms-testimonials__slider swiper"
+        aria-label="Customer testimonials"
+      >
+        <div class="ms-testimonials__wrapper swiper-wrapper">
+
+          {% for block in section.blocks %}
+
+            {% liquid
+              assign ms_name = block.settings.customer_name
+              assign ms_avatar = block.settings.customer_image
+              assign ms_rating = block.settings.rating
+              assign ms_initials = ms_name | slice: 0, 1 | upcase
+            %}
+
+            <div
+              class="ms-testimonials__slide swiper-slide"
+              {{ block.shopify_attributes }}
+            >
+              <div class="ms-testimonial-card">
+
+                <!-- Review -->
+                <p class="ms-testimonial-card__review">
+                  {{ block.settings.review_text | escape }}
+                </p>
+
+                <!-- Rating -->
+                <div
+                  class="ms-testimonial-card__stars"
+                  role="img"
+                  aria-label="{{ ms_rating }} out of 5 stars"
+                >
+                  {% for i in (1..5) %}
+                    <svg
+                      class="ms-testimonial-card__star{% if i > ms_rating %} ms-testimonial-card__star--empty{% endif %}"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M12 2.5 15 8.6l6.7 1-4.85 4.75L18 21l-6-3.15L6 21l1.15-6.65L2.3 9.6l6.7-1L12 2.5Z"
+                      />
+                    </svg>
+                  {% endfor %}
+                </div>
+
+                <!-- Customer Profile -->
+                <div class="ms-testimonial-card__avatar">
+
+                  {% if ms_avatar != blank %}
+                    {{
+                      ms_avatar
+                      | image_url: width: 160
+                      | image_tag:
+                        class: 'ms-testimonial-card__image',
+                        loading: 'lazy',
+                        widths: '80, 120, 160',
+                        sizes: '45px',
+                        alt: ms_name
+                    }}
+                  {% else %}
+                    <span class="ms-testimonial-card__initials">
+                      {{ ms_initials }}
+                    </span>
+                  {% endif %}
+
+                </div>
+
+                <!-- Customer Name -->
+                <h3 class="ms-testimonial-card__name">
+                  {{ ms_name | escape }}
+                </h3>
+
+              </div>
+            </div>
+
+          {% endfor %}
+
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div
+        class="ms-testimonials__pagination"
+        aria-label="Testimonial pagination"
+      ></div>
+    {% endif %}
+
+  </div>
+</section>
+
+<script>
+  (() => {
+    const controllerKey = '__msTestimonialsSwiper';
+    const sectionId = 'ms-testimonials-{{ section.id }}';
+
+    function getSectionRoot(element) {
+      if (!(element instanceof Element)) return null;
+
+      return element.matches('.ms-testimonials')
+        ? element
+        : element.querySelector('.ms-testimonials');
+    }
+
+    const controller = window[controllerKey] || {
+      initialize(section) {
+        const slider = section?.querySelector('.ms-testimonials__slider');
+        const pagination = section?.querySelector('.ms-testimonials__pagination');
+
+        if (!slider || typeof window.Swiper !== 'function') return;
+
+        if (slider.swiper) {
+          slider.swiper.destroy(true, true);
+        }
+
+        const totalSlides = slider.querySelectorAll('.ms-testimonials__slide').length;
+        if (totalSlides === 0) return;
+
+        new window.Swiper(slider, {
+          slidesPerView: 1,
+          slidesPerGroup: 1,
+          spaceBetween: 12,
+          speed: 550,
+          loop: false,
+          watchOverflow: true,
+          grabCursor: totalSlides > 1,
+          pagination: {
+            el: pagination,
+            clickable: true,
+            bulletElement: 'button',
+            bulletClass: 'ms-testimonials__bullet',
+            bulletActiveClass: 'ms-testimonials__bullet--active',
+            renderBullet(index, className) {
+              return (
+                '<button type="button" class="' +
+                className +
+                '" aria-label="Go to testimonial ' +
+                (index + 1) +
+                '"></button>'
+              );
+            }
+          },
+          breakpoints: {
+            750: {
+              slidesPerView: 2,
+              spaceBetween: 12
+            },
+            990: {
+              slidesPerView: 3,
+              spaceBetween: 12
+            }
+          },
+          a11y: {
+            enabled: true
+          }
+        });
+      },
+      destroy(section) {
+        const slider = section?.querySelector('.ms-testimonials__slider');
+        if (slider?.swiper) {
+          slider.swiper.destroy(true, true);
+        }
+      }
+    };
+
+    if (!window[controllerKey]) {
+      window[controllerKey] = controller;
+
+      document.addEventListener('shopify:section:load', (event) => {
+        const section = getSectionRoot(event.target);
+        if (section) controller.initialize(section);
+      });
+
+      document.addEventListener('shopify:section:unload', (event) => {
+        const section = getSectionRoot(event.target);
+        if (section) controller.destroy(section);
+      });
+
+      document.addEventListener('shopify:block:select', (event) => {
+        if (!(event.target instanceof Element)) return;
+
+        const slide = event.target.closest('.ms-testimonials__slide');
+        const slider = slide?.closest('.ms-testimonials__slider');
+        if (!slide || !slider?.swiper) return;
+
+        const slides = Array.from(
+          slider.querySelectorAll('.ms-testimonials__slide')
+        );
+        const index = slides.indexOf(slide);
+
+        if (index >= 0) {
+          slider.swiper.slideTo(index, 0);
+        }
+      });
+    }
+
+    const initializeSection = () => {
+      const section = document.getElementById(sectionId);
+      if (section) controller.initialize(section);
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeSection, { once: true });
+    } else {
+      initializeSection();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "MS Testimonials",
+  "tag": "section",
+  "class": "ms-testimonials-section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What They Say About Us"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Unveiling the Silent Narratives: Decoding the Messages Hidden in Perfume Bottle Designs"
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Dark overlay opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 70
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#171717"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Stars and pagination color",
+      "default": "#C5A374"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Customer review",
+          "default": "A wonderful fragrance experience. The quality and packaging are absolutely beautiful."
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "image_picker",
+          "id": "customer_image",
+          "label": "Customer photo"
+        },
+        {
+          "type": "text",
+          "id": "customer_name",
+          "label": "Customer name",
+          "default": "Happy Customer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "MS Testimonials",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Sophia Rodriguez",
+            "review_text": "As a professional, I understand the importance of making a good impression, and Abely's fragrances help me do just that."
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "David Smith",
+            "review_text": "I've been a loyal customer of Abely Perfume for years now, and I can't imagine using anything else."
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Emily Chen",
+            "review_text": "Abely Perfume is magical. Not only do their fragrances smell incredible, but the attention to detail in their packaging is also exquisite."
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Alex Morgan",
+            "review_text": "Beautifully designed fragrances that feel luxurious and elegant. A fantastic experience from start to finish."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
