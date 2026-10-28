@@ -138,8 +138,27 @@
         "background_image": "shopify://shop_images/Rectangle_4515.png",
         "overlay_opacity": 70,
         "card_background": "#171717",
-        "text_color": "#FFFFFF",
-        "accent_color": "#C5A374"
+        "text_color": "#ffffff",
+        "accent_color": "#c5a374"
+      }
+    },
+    "ms_contact_us_mcCKAP": {
+      "type": "ms-contact-us",
+      "name": "MS Contact Quote",
+      "settings": {
+        "heading": "Let's Talk!",
+        "description": "We'd love to hear from you! Send us a message using the form opposite, or email us.",
+        "phone_number": "+32 465 45 37 15",
+        "contact_email": "abelysupport@email.com",
+        "address": "Company street 24, 2100 Belgium",
+        "form_heading": "Get A Free Quote!",
+        "button_text": "SUBMIT FORM",
+        "success_message": "Thank you for contacting us! We'll get back to you as soon as possible.",
+        "background_color": "#FFFFFF",
+        "text_color": "#111111",
+        "form_background": "#000000",
+        "form_text_color": "#FFFFFF",
+        "accent_color": "#C19D6F"
       }
     }
   },
@@ -147,6 +166,7 @@
     "main",
     "ms_limited_offer_tqA4wd",
     "ms_featured_blogs_gQMwe4",
-    "ms_testimonials_BXkcik"
+    "ms_testimonials_BXkcik",
+    "ms_contact_us_mcCKAP"
   ]
 }
