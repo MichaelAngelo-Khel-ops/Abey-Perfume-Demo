@@ -15,7 +15,7 @@
     "logo_height_mobile": 50,
     "favicon": "shopify://shop_images/logo.webp",
     "page_text_color": "{{ settings.color_palette.background }}",
-    "type_body_font": "outfit_n4",
+    "type_body_font": "outfit_n2",
     "type_subheading_font": "outfit_n5",
     "type_heading_font": "cardo_n7",
     "type_accent_font": "outfit_n4",
