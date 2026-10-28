@@ -1,0 +1,741 @@
+
+{% style %}
+  /* ==========================================
+     MS CONTACT QUOTE - SECTION STYLES
+     ========================================== */
+
+  #shopify-section-{{ section.id }} {
+    --ms-contact-bg: {{ section.settings.background_color }};
+    --ms-contact-text: {{ section.settings.text_color }};
+    --ms-contact-panel: {{ section.settings.form_background }};
+    --ms-contact-panel-text: {{ section.settings.form_text_color }};
+    --ms-contact-accent: {{ section.settings.accent_color }};
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact {
+    padding: 60px 130px;
+    background: var(--ms-contact-bg);
+    color: var(--ms-contact-text);
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__container {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+    align-items: start;
+    gap: clamp(45px, 7vw, 110px);
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  /* ==========================================
+     LEFT COLUMN - CONTACT INFORMATION
+     ========================================== */
+
+  #shopify-section-{{ section.id }} .ms-contact__info {
+    padding-top: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__heading {
+    margin: 0 0 14px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(28px, 2.8vw, 36px);
+    line-height: 1.2;
+    font-weight: 400;
+    letter-spacing: -.025em;
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__description {
+    max-width: 340px;
+    margin: 0 0 32px;
+    font-size: 13px;
+    line-height: 1.75;
+    font-weight: 400;
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__details {
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__detail {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    color: var(--ms-contact-accent);
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__icon svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__detail-text {
+    margin: 0;
+    color: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+    text-decoration: none;
+    transition: color .2s ease;
+  }
+
+  #shopify-section-{{ section.id }} a.ms-contact__detail-text:hover {
+    color: var(--ms-contact-accent);
+  }
+
+  /* ==========================================
+     RIGHT COLUMN - FORM PANEL
+     ========================================== */
+
+  #shopify-section-{{ section.id }} .ms-contact__panel {
+    width: 100%;
+    padding: 32px 28px 27px;
+    background: var(--ms-contact-panel);
+    color: var(--ms-contact-panel-text);
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__form-heading {
+    margin: 0 0 24px;
+    text-align: center;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(27px, 2.7vw, 35px);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -.02em;
+  }
+
+  /* Form layout */
+
+  #shopify-section-{{ section.id }} .ms-contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__name-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__label {
+    display: block;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.4;
+    font-weight: 600;
+    color: var(--ms-contact-panel-text);
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__required {
+    color: var(--ms-contact-accent);
+  }
+
+  /* Inputs */
+
+  #shopify-section-{{ section.id }} .ms-contact__input,
+  #shopify-section-{{ section.id }} .ms-contact__textarea {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 11px 12px;
+    border: 1px solid #dedede;
+    border-radius: 0;
+    outline: none;
+    background: #fff;
+    color: #171717;
+    box-shadow: none;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    transition: border-color .2s ease, box-shadow .2s ease;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__input {
+    height: 43px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__textarea {
+    min-height: 110px;
+    resize: vertical;
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__input::placeholder,
+  #shopify-section-{{ section.id }} .ms-contact__textarea::placeholder {
+    color: #6d6d6d;
+    opacity: 1;
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__input:focus-visible,
+  #shopify-section-{{ section.id }} .ms-contact__textarea:focus-visible {
+    border-color: var(--ms-contact-accent);
+    box-shadow: 0 0 0 2px rgba(193, 157, 111, .25);
+  }
+
+  /* Submit button */
+
+  #shopify-section-{{ section.id }} .ms-contact__submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 44px;
+    margin-top: 0;
+    padding: 12px 20px;
+    border: 1px solid var(--ms-contact-panel-text);
+    border-radius: 0;
+    background: transparent;
+    color: var(--ms-contact-panel-text);
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .25s ease, color .25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__submit:hover {
+    background: var(--ms-contact-panel-text);
+    color: var(--ms-contact-panel);
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__submit:focus-visible {
+    outline: 2px solid var(--ms-contact-accent);
+    outline-offset: 4px;
+  }
+
+  /* Form messages */
+
+  #shopify-section-{{ section.id }} .ms-contact__message {
+    padding: 12px 14px;
+    font-size: 13px;
+    line-height: 1.6;
+    border: 1px solid currentColor;
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__message--success {
+    color: #b8d8b8;
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__message--error {
+    color: #ffb8b8;
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__message ul {
+    margin: 8px 0 0;
+    padding-left: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .ms-contact__input[aria-invalid="true"] {
+    border-color: #d44444;
+  }
+
+  /* ==========================================
+     TABLET
+     ========================================== */
+
+  @media screen and (max-width: 989px) {
+    #shopify-section-{{ section.id }} .ms-contact {
+      padding: 50px 25px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-contact__container {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+      gap: 35px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-contact__panel {
+      padding: 28px 22px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-contact__name-row {
+      gap: 12px;
+    }
+  }
+
+  /* ==========================================
+     MOBILE
+     ========================================== */
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .ms-contact {
+      padding: 40px 16px 50px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-contact__container {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 36px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-contact__info {
+      padding: 0 4px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-contact__heading {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-contact__description {
+      max-width: 100%;
+      margin-bottom: 25px;
+      font-size: 13px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-contact__details {
+      gap: 19px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-contact__detail-text {
+      font-size: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-contact__panel {
+      padding: 27px 20px 25px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-contact__form-heading {
+      margin-bottom: 22px;
+      font-size: 29px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-contact__form {
+      gap: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-contact__name-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-contact__label {
+      font-size: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-contact__input {
+      height: 42px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-contact__textarea {
+      min-height: 120px;
+    }
+
+    #shopify-section-{{ section.id }} .ms-contact__submit {
+      min-height: 45px;
+      font-size: 14px;
+    }
+  }
+
+  /* Very small screens */
+
+  @media screen and (max-width: 359px) {
+    #shopify-section-{{ section.id }} .ms-contact__name-row {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .ms-contact__submit,
+    #shopify-section-{{ section.id }} .ms-contact__input,
+    #shopify-section-{{ section.id }} .ms-contact__textarea {
+      transition: none;
+    }
+  }
+{% endstyle %}
+
+{% comment %}
+  ==========================================
+  MS CONTACT QUOTE - LIQUID CONTENT
+  ==========================================
+{% endcomment %}
+
+{% liquid
+  assign ms_form_id = 'ms-contact-form-' | append: section.id
+  assign ms_email = section.settings.contact_email | strip
+  assign ms_phone = section.settings.phone_number | strip
+  assign ms_phone_link = ms_phone | remove: ' ' | remove: '-' | remove: '(' | remove: ')'
+%}
+
+<section
+  id="ms-contact-{{ section.id }}"
+  class="ms-contact"
+>
+  <div class="ms-contact__container">
+
+    <!-- LEFT COLUMN -->
+    <div class="ms-contact__info">
+
+      {% if section.settings.heading != blank %}
+        <h2 class="ms-contact__heading">
+          {{ section.settings.heading | escape }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <p class="ms-contact__description">
+          {{ section.settings.description | escape }}
+        </p>
+      {% endif %}
+
+      <div class="ms-contact__details">
+
+        <!-- Phone -->
+        {% if ms_phone != blank %}
+          <div class="ms-contact__detail">
+
+            <span class="ms-contact__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 3.09 5.18 2 2 0 0 1 5.08 3h3a2 2 0 0 1 2 1.72c.12.96.35 1.9.68 2.8a2 2 0 0 1-.45 2.11L9.03 10.9a16 16 0 0 0 4.07 4.07l1.27-1.28a2 2 0 0 1 2.11-.45c.9.33 1.84.56 2.8.68A2 2 0 0 1 22 16.92z"/>
+              </svg>
+            </span>
+
+            <a
+              class="ms-contact__detail-text"
+              href="tel:{{ ms_phone_link | escape }}"
+            >
+              {{ ms_phone | escape }}
+            </a>
+
+          </div>
+        {% endif %}
+
+        <!-- Email -->
+        {% if ms_email != blank %}
+          <div class="ms-contact__detail">
+
+            <span class="ms-contact__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <rect x="2" y="4" width="20" height="16" rx="1"/>
+                <path d="m2 6 10 7 10-7"/>
+              </svg>
+            </span>
+
+            <a
+              class="ms-contact__detail-text"
+              href="mailto:{{ ms_email | escape }}"
+            >
+              {{ ms_email | escape }}
+            </a>
+
+          </div>
+        {% endif %}
+
+        <!-- Address -->
+        {% if section.settings.address != blank %}
+          <div class="ms-contact__detail">
+
+            <span class="ms-contact__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <rect x="5" y="2" width="14" height="20"/>
+                <path d="M9 6h1M14 6h1M9 10h1M14 10h1M9 14h1M14 14h1M10 22v-4h4v4"/>
+              </svg>
+            </span>
+
+            <p class="ms-contact__detail-text">
+              {{ section.settings.address | escape }}
+            </p>
+
+          </div>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="ms-contact__panel">
+
+      {% if section.settings.form_heading != blank %}
+        <h2 class="ms-contact__form-heading">
+          {{ section.settings.form_heading | escape }}
+        </h2>
+      {% endif %}
+
+      {% form 'contact', id: ms_form_id, class: 'ms-contact__form' %}
+
+        <!-- Success message -->
+        {% if form.posted_successfully? %}
+          <div
+            class="ms-contact__message ms-contact__message--success"
+            role="status"
+            tabindex="-1"
+          >
+            {{ section.settings.success_message | escape }}
+          </div>
+        {% endif %}
+
+        <!-- Error message -->
+        {% if form.errors %}
+          <div
+            class="ms-contact__message ms-contact__message--error"
+            role="alert"
+            tabindex="-1"
+          >
+            <strong>
+              Please correct the following errors:
+            </strong>
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+
+        <!-- First Name and Last Name -->
+        <div class="ms-contact__name-row">
+
+          <div class="ms-contact__field">
+            <label
+              class="ms-contact__label"
+              for="ms-first-name-{{ section.id }}"
+            >
+              First Name
+              <span class="ms-contact__required" aria-hidden="true">*</span>
+            </label>
+
+            <input
+              id="ms-first-name-{{ section.id }}"
+              class="ms-contact__input"
+              type="text"
+              name="contact[first_name]"
+              placeholder="First Name"
+              autocomplete="given-name"
+              required
+              maxlength="100"
+            >
+          </div>
+
+          <div class="ms-contact__field">
+            <label
+              class="ms-contact__label"
+              for="ms-last-name-{{ section.id }}"
+            >
+              Last Name
+              <span class="ms-contact__required" aria-hidden="true">*</span>
+            </label>
+
+            <input
+              id="ms-last-name-{{ section.id }}"
+              class="ms-contact__input"
+              type="text"
+              name="contact[last_name]"
+              placeholder="Last Name"
+              autocomplete="family-name"
+              required
+              maxlength="100"
+            >
+          </div>
+
+        </div>
+
+        <!-- Email -->
+        <div class="ms-contact__field">
+          <label
+            class="ms-contact__label"
+            for="ms-email-{{ section.id }}"
+          >
+            Email
+            <span class="ms-contact__required" aria-hidden="true">*</span>
+          </label>
+
+          <input
+            id="ms-email-{{ section.id }}"
+            class="ms-contact__input"
+            type="email"
+            name="contact[email]"
+            value="{{ form.email | escape }}"
+            placeholder="Email Address"
+            autocomplete="email"
+            required
+            {% if form.errors contains 'email' %}
+              aria-invalid="true"
+            {% endif %}
+          >
+        </div>
+
+        <!-- Subject -->
+        <div class="ms-contact__field">
+          <label
+            class="ms-contact__label"
+            for="ms-subject-{{ section.id }}"
+          >
+            Subject
+            <span class="ms-contact__required" aria-hidden="true">*</span>
+          </label>
+
+          <input
+            id="ms-subject-{{ section.id }}"
+            class="ms-contact__input"
+            type="text"
+            name="contact[subject]"
+            placeholder="Subject"
+            maxlength="200"
+            required
+          >
+        </div>
+
+        <!-- Message -->
+        <div class="ms-contact__field">
+          <label
+            class="ms-contact__label"
+            for="ms-message-{{ section.id }}"
+          >
+            Your Message
+            <span class="ms-contact__required" aria-hidden="true">*</span>
+          </label>
+
+          <textarea
+            id="ms-message-{{ section.id }}"
+            class="ms-contact__textarea"
+            name="contact[body]"
+            placeholder="Your Message"
+            rows="5"
+            required
+          >{{ form.body | escape }}</textarea>
+        </div>
+
+        <!-- Submit -->
+        <button
+          type="submit"
+          class="ms-contact__submit"
+        >
+          {{ section.settings.button_text | escape }}
+        </button>
+
+      {% endform %}
+
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "MS Contact Quote",
+  "tag": "section",
+  "class": "ms-contact-quote-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Contact information"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Contact heading",
+      "default": "Let's Talk!"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Contact description",
+      "default": "We'd love to hear from you! Send us a message using the form opposite, or email us."
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Phone number",
+      "default": "+32 465 45 37 15"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Contact email",
+      "default": "abelysupport@email.com"
+    },
+    {
+      "type": "text",
+      "id": "address",
+      "label": "Business address",
+      "default": "Company street 24, 2100 Belgium"
+    },
+    {
+      "type": "header",
+      "content": "Contact form"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Form heading",
+      "default": "Get A Free Quote!"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Submit button label",
+      "default": "SUBMIT FORM"
+    },
+    {
+      "type": "textarea",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thank you for contacting us! We'll get back to you as soon as possible."
+    },
+    {
+      "type": "header",
+      "content": "Section colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Contact text color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "form_background",
+      "label": "Form background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "form_text_color",
+      "label": "Form text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Icon and accent color",
+      "default": "#C19D6F"
+    }
+  ],
+  "presets": [
+    {
+      "name": "MS Contact Quote"
+    }
+  ]
+}
+{% endschema %}
