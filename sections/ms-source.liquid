@@ -6,6 +6,8 @@
     padding: 40px 0;
     overflow: hidden;
     color: var(--ms-showcase-text);
+    max-width: 1200px;
+    margin: auto;
   }
 
   .ms-showcase__inner {
@@ -15,15 +17,15 @@
     padding-left: var(--ms-showcase-gutter); /* no right padding so slides bleed off the edge */
   }
 
-  .ms-showcase__content {
+  /* .ms-showcase__content {
     padding-right: var(--ms-showcase-gutter);
-  }
+  } */
 
   .ms-showcase__heading {
     margin: 0 0 24px;
     font-family: 'Cormorant Garamond', Georgia, serif;
     font-size: 2rem;
-    font-weight: 500;
+    font-weight: 650;
     line-height: 1.15;
   }
 
@@ -49,14 +51,15 @@
 
   .ms-showcase__feature-title {
     margin: 0;
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: var(--font-body--family);
     font-size: 1.25rem;
-    font-weight: 700;
+    font-weight: 500;
   }
 
   .ms-showcase__feature-text {
     margin: 0;
     font-size: 0.875rem;
+    font-weight: 300;
     line-height: 1.6;
   }
 
@@ -145,7 +148,7 @@
     }
 
     .ms-showcase__inner {
-      grid-template-columns: minmax(280px, 0.8fr) 2fr;
+      grid-template-columns: minmax(280px, 1fr) 2fr;
       align-items: center;
       gap: 48px;
     }
