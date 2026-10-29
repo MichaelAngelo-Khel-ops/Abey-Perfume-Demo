@@ -61,7 +61,7 @@
 
   #shopify-section-{{ section.id }} .ms-pdp__heading {
     margin: 0 0 8px;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: var(--ms-font-family-header);
     font-size: clamp(28px, 3vw, 38px);
     font-weight: 400;
     line-height: 1.2;
@@ -69,12 +69,11 @@
   }
 
   #shopify-section-{{ section.id }} .ms-pdp__intro-text {
-    max-width: 600px;
     margin: 0 auto;
-    font-size: 12px;
+    font-size: 1rem;
     font-weight: 300;
     line-height: 1.7;
-    color: var(--ms-muted);
+    font-family: var(--ms-font-family-body);
   }
 
   #shopify-section-{{ section.id }} .ms-pdp__intro-text p {
@@ -156,6 +155,7 @@
     border: 1px solid transparent;
     opacity: 0.85;
     cursor: pointer;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.055);
     transition:
       border-color 0.25s ease,
       opacity 0.25s ease;
@@ -187,9 +187,10 @@
   }
 
   #shopify-section-{{ section.id }} .ms-pdp__title {
+    font-family: var(--font-body--family);
     margin: 0 0 18px;
     font-size: clamp(20px, 2vw, 25px);
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1.35;
     letter-spacing: -0.35px;
   }
@@ -217,9 +218,10 @@
 
   #shopify-section-{{ section.id }} .ms-pdp__description {
     margin: 0 0 20px;
-    font-size: 12px;
+    font-size: 1rem;
+    font-weight: 300;
+    font-family: var(--font-body--family);
     line-height: 1.85;
-    color: #555;
     padding-bottom: 20px;
     border-bottom: 1px solid var(--ms-accent);
   }
@@ -309,7 +311,7 @@
     background: transparent;
     color: var(--ms-accent);
     font-family: inherit;
-    font-size: 13px;
+    font-size: 1rem;
     font-weight: 500;
     letter-spacing: 1.7px;
     text-transform: uppercase;
@@ -482,7 +484,7 @@
 
     #shopify-section-{{ section.id }} .ms-pdp__title {
       margin-bottom: 14px;
-      font-size: 21px;
+      font-size: 2rem;
       line-height: 1.35;
     }
 
@@ -759,7 +761,7 @@
                 {% if ms_product.metafields.custom.customized_decoration != blank %}
                     <li>
                       <span class="ms-pdp__additional-info-item">
-                        <b>Customized Decoration:</b>{{ ms_product.metafields.custom.customized_decoration }}
+                        <b>Customized Decoration:</b> {{ ms_product.metafields.custom.customized_decoration }}
                       </span>
                     </li>
                 {% endif %}

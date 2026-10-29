@@ -13,7 +13,7 @@
   }
 
   #shopify-section-{{ section.id }} .ms-contact {
-    padding: 60px 130px;
+    padding: 80px 150px;
     background: var(--ms-contact-bg);
     color: var(--ms-contact-text);
   }
@@ -22,8 +22,8 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
     align-items: start;
-    gap: clamp(45px, 7vw, 110px);
-    max-width: 1280px;
+    gap: clamp(45px, 6vw, 110px);
+    max-width: 1200px;
     margin: 0 auto;
   }
 
@@ -37,7 +37,7 @@
 
   #shopify-section-{{ section.id }} .ms-contact__heading {
     margin: 0 0 14px;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: var(--ms-font-family-header);
     font-size: clamp(28px, 2.8vw, 36px);
     line-height: 1.2;
     font-weight: 400;
@@ -47,9 +47,9 @@
   #shopify-section-{{ section.id }} .ms-contact__description {
     max-width: 340px;
     margin: 0 0 32px;
-    font-size: 13px;
+    font-size: 1rem;
     line-height: 1.75;
-    font-weight: 400;
+    font-weight: 300;
   }
 
   #shopify-section-{{ section.id }} .ms-contact__details {
@@ -89,7 +89,7 @@
     margin: 0;
     color: inherit;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1.6;
     overflow-wrap: anywhere;
     text-decoration: none;
@@ -106,7 +106,7 @@
 
   #shopify-section-{{ section.id }} .ms-contact__panel {
     width: 100%;
-    padding: 32px 28px 27px;
+    padding: 32px 40px 27px;
     background: var(--ms-contact-panel);
     color: var(--ms-contact-panel-text);
   }
@@ -114,7 +114,7 @@
   #shopify-section-{{ section.id }} .ms-contact__form-heading {
     margin: 0 0 24px;
     text-align: center;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: var(--ms-font-family-header) ;
     font-size: clamp(27px, 2.7vw, 35px);
     font-weight: 400;
     line-height: 1.2;
@@ -145,9 +145,9 @@
   #shopify-section-{{ section.id }} .ms-contact__label {
     display: block;
     font-family: inherit;
-    font-size: 13px;
+    font-size: 1rem;
     line-height: 1.4;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--ms-contact-panel-text);
   }
 
@@ -215,7 +215,7 @@
     background: transparent;
     color: var(--ms-contact-panel-text);
     font-family: inherit;
-    font-size: 15px;
+    font-size: 1rem;
     font-weight: 400;
     line-height: 1.2;
     letter-spacing: .1em;
@@ -317,7 +317,7 @@
     }
 
     #shopify-section-{{ section.id }} .ms-contact__detail-text {
-      font-size: 12px;
+      font-size: 1rem;
     }
 
     #shopify-section-{{ section.id }} .ms-contact__panel {
