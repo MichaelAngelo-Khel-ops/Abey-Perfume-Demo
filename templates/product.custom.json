@@ -35,7 +35,7 @@
         "button_label": "SHOP NOW",
         "button_link": "",
         "show_timer": true,
-        "end_date": "2026-11-30T23:59:00+08:00",
+        "end_date": "{{ product.metafields.custom.promo_date.value }}",
         "expired_behavior": "message",
         "expired_text": "This offer has ended.",
         "background_color": "#171717",
@@ -154,11 +154,11 @@
         "form_heading": "Get A Free Quote!",
         "button_text": "SUBMIT FORM",
         "success_message": "Thank you for contacting us! We'll get back to you as soon as possible.",
-        "background_color": "#FFFFFF",
+        "background_color": "#ffffff",
         "text_color": "#111111",
         "form_background": "#000000",
-        "form_text_color": "#FFFFFF",
-        "accent_color": "#C19D6F"
+        "form_text_color": "#ffffff",
+        "accent_color": "#c19d6f"
       }
     }
   },
